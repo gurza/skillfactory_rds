@@ -1,5 +1,8 @@
 import numpy as np
 
+MIN_NUMBER = 1
+MAX_NUMBER = 100
+
 
 def game_core_v1(number):
     """Guesses the target number (Version 1).
@@ -14,7 +17,7 @@ def game_core_v1(number):
     count = 0
     while True:
         count += 1
-        predict = np.random.randint(1,101)
+        predict = np.random.randint(MIN_NUMBER, MAX_NUMBER + 1)
         if number == predict:
             return count
 
@@ -31,7 +34,7 @@ def game_core_v2(number):
     :rtype: int
     """
     count = 1
-    predict = np.random.randint(1,101)
+    predict = np.random.randint(MIN_NUMBER, MAX_NUMBER + 1)
     while number != predict:
         count += 1
         if number > predict:
@@ -51,7 +54,7 @@ def score_game(game_core):
     """
     count_ls = []
     np.random.seed(1)  # фиксируем RANDOM SEED, чтобы ваш эксперимент был воспроизводим!
-    random_array = np.random.randint(1, 101, size=1000)
+    random_array = np.random.randint(MIN_NUMBER, MAX_NUMBER + 1, size=1000)
     for number in random_array:
         count_ls.append(game_core(number))
     score = int(np.mean(count_ls))
