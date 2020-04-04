@@ -5,11 +5,11 @@ MAX_NUMBER = 100
 
 
 def game_core_v1(number):
-    """Guesses the target number (Version 1).
+    """Guesses the secret number (Version 1).
 
     Просто угадываем на random, никак не используя информацию о больше или меньше.
 
-    :param number: the target number.
+    :param number: the secret number.
     :type number: int
     :return: the number of guessing attempts.
     :rtype: int
@@ -23,12 +23,12 @@ def game_core_v1(number):
 
 
 def game_core_v2(number):
-    """Guesses the target number (Version 2).
+    """Guesses the secret number (Version 2).
 
     Сначала устанавливаем любое random число, а потом уменьшаем или увеличиваем его в зависимости от того,
     больше оно или меньше нужного.
 
-    :param number: the target number.
+    :param number: the secret number.
     :type number: int
     :return: the number of guessing attempts.
     :rtype: int
