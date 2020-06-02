@@ -88,3 +88,31 @@ import pandas as pd
 football = pd.read_csv('data_sf.csv')
 print(football.info())
 ```
+
+
+## 5.6 Получение информации о датафрейме: describe
+Метод `describe()` объекта DataFrame показывает основные статистические характеристики данных по каждому числовому признаку (типы int64 и float64):
+1. count - число ненулевых (not None) значений,
+1. mean - среднее,
+1. std - стандартное отклонение,
+1. min, max - диапазон,
+1. 50% - медиану (0.50 квартиль),
+1. 25%, 75% - 0.25 и 0.75 квартили.
+
+По нечисловым признакам, например, по строчным (object) или булевым (bool), метод `describe()` возвращает
+1. count - число ненулевых (not None) значений,
+1. unique - число уникальных значений,
+1. top - самое частое значение,
+1. freq - частота самого частого значения.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+
+print(football.describe())
+
+# stats for strings properties
+print(football.describe(include=['object']))
+```
