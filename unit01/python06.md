@@ -719,3 +719,61 @@ s = pivot.loc['CM'].reset_index()
 print(s.loc[s['CM'] == 0]['CM'].count())
 # > 136
 ```
+
+
+## 6.14 Задачи
+**Задача 1**
+
+С помощью сводной таблицы и функции loc посчитайте, сколько получают ("Wage") русские футболисты ("Russia"),
+играющие за ФК "AS Monaco".
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+pivot = df.pivot_table(index=['Nationality'], columns=['Club'], values='Wage', aggfunc='sum', fill_value=0)
+print(pivot.loc['Russia']['AS Monaco'])
+# > 61000
+```
+
+**Задача 2**
+
+Создайте сводную таблицу, содержащую сведения о средней скорости футболистов, занимающих разные позиции (Position)
+в разных футбольных клубах (Club).  
+Основываясь на данных таблицы, отметьте три позиции, представители которых в среднем обладают самой высокой скоростью.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+pivot = df.pivot_table(index=['Position', 'Club'], values='SprintSpeed', aggfunc='mean', fill_value=0)\
+    .sort_values('SprintSpeed', ascending=False)
+print(pivot.head(3))
+# >                               SprintSpeed
+# > Position Club                            
+# > RS       Sarpsborg 08 FF             94.0
+# > RM       Preston North End           94.0
+# > LM       Belgrano de Córdoba         94.0
+```
+
+**Задача 3**
+
+Используя таблицу, созданную на предыдущем шаге, отметьте названия трёх клубов,
+в которых центральные форварды (ST) обладают наибольшей средней скоростью.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+pivot = df.pivot_table(index=['Position', 'Club'], values='SprintSpeed', aggfunc='mean', fill_value=0)\
+    .sort_values('SprintSpeed', ascending=False)
+print(pivot.loc['ST'].head(3))
+# >            SprintSpeed
+# > Club                  
+# > Vitória           91.0
+# > Sydney FC         88.0
+# > CD Lugo           87.0
+```
