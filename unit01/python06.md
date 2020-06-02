@@ -76,8 +76,7 @@ import pandas as pd
 df = pd.read_csv('data_sf.csv')
 clubs = df.Club.value_counts()
 print(clubs[clubs == clubs.max()].index)
-# > Shonan Bellmare       30
-# > V-Varen Nagasaki      30
+# > Index(['Shonan Bellmare', 'V-Varen Nagasaki'], dtype='object')
 ```
 
 **Задание 3**
