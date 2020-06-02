@@ -420,3 +420,47 @@ s = df.groupby(['Position'])['Wage'].sum().sort_values(ascending=False)
 print(s.loc[s > 5000000].index)
 # > Index(['ST', 'GK', 'CB', 'CM', 'LB', 'CAM', 'LM', 'RM', 'RB'], dtype='object', name='Position')
 ```
+
+
+## 6.8 Ещё примеры группировки
+Построим такую таблицу, где сгруппируем игроков по национальностям (Nationality)
+и посчитаем среднюю зарплату, средний возраст и среднюю силу удара.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Nationality'])[['Wage','Age','ShotPower']].mean().sort_values(['Wage'],ascending=False)
+print(s.head(10))
+# >                             Wage        Age  ShotPower
+# > Nationality                                           
+# > Dominican Republic  71000.000000  23.000000  75.500000
+# > Egypt               35545.454545  25.818182  59.363636
+# > Gabon               28900.000000  26.400000  56.900000
+# > Croatia             26722.222222  24.819444  54.305556
+# > Equatorial Guinea   25666.666667  28.000000  55.333333
+# > Belgium             20024.390244  24.030488  56.390244
+# > Ecuador             18333.333333  24.619048  60.666667
+# > Uruguay             17590.361446  26.771084  56.192771
+# > Brazil              17371.158392  27.898345  58.203310
+# > Algeria             15810.810811  27.027027  56.567568
+```
+
+### Задания
+
+**Задание 1**
+
+Посчитайте среднюю зарплату (Wage) и цену (Value) игроков разных позиций (Position).  
+Представители какой позиции имеют самую высокую среднюю цену?  
+Какова средняя зарплата футболистов на данной позиции?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Position'])[['Wage', 'Value']].mean().sort_values(['Value'],ascending=False)
+print(s.index[0])
+print(int(s['Wage'][s.index[0]]))
+```
