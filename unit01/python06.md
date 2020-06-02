@@ -26,3 +26,68 @@ small_df = df[df.columns[1:8]].head(25)
 ```
 
 Больше в этом разделе ничего делать не будем.
+
+
+## 6.3 Функция value_counts
+Функция `value_counts()` (метод Series) подсчитывает для каждого значения в серии количество раз,
+которое это значение встречается.
+Возвращаемое значение - серия.
+
+```python
+import pandas as pd
+
+df = pd.read_csv('data_sf.csv')
+small_df = df[df.columns[1:8]].head(25)
+s = small_df['Nationality'].value_counts()
+
+print('Сборная, у которой больше всего футболистов, - это', s.index[0])
+print('Кол-во национальностей, которые встречаются в датасете small_df, -', len(s.index))
+print('Кол-во футболистов из сборной Германии -', s.loc['Germany'])
+print('Кол-во футболистов из сборной Германии -', s['Germany'])
+print('Сборные, в которых больше одного футболиста:', s.loc[s>1], sep='\n')
+print('Сборные, в которых больше одного футболиста:', s[s>1], sep='\n')
+```
+
+### Задания
+**Задание 1**
+
+Сколько футбольных клубов представлено в датасете?
+
+```python
+import pandas as pd
+
+df = pd.read_csv('data_sf.csv')
+clubs = df.Club.value_counts()
+print(len(clubs.index))
+# > 650
+```
+
+**Задание 2**
+
+Отметьте названия футбольных клубов, представленных в датасете наибольшим количеством игроков.
+
+```python
+import pandas as pd
+
+df = pd.read_csv('data_sf.csv')
+clubs = df.Club.value_counts()
+print(clubs[clubs == clubs.max()].index)
+# > Shonan Bellmare       30
+# > V-Varen Nagasaki      30
+```
+
+**Задание 3**
+
+Как называется футбольный клуб, представленный наименьшим количеством игроков в датасете?  
+Данные о скольких игроках этого клуба имеются в датасете?
+
+```python
+import pandas as pd
+
+df = pd.read_csv('data_sf.csv')
+clubs = df.Club.value_counts()
+print(clubs.index[-1])
+print(clubs[clubs.index[-1]])
+# > Atlético Mineiro
+# > 6
+```
