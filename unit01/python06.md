@@ -21,6 +21,7 @@
 ```python
 import pandas as pd
 
+
 df = pd.read_csv('data_sf.csv')
 small_df = df[df.columns[1:8]].head(25)
 ```
@@ -35,6 +36,7 @@ small_df = df[df.columns[1:8]].head(25)
 
 ```python
 import pandas as pd
+
 
 df = pd.read_csv('data_sf.csv')
 small_df = df[df.columns[1:8]].head(25)
@@ -56,6 +58,7 @@ print('Сборные, в которых больше одного футбол�
 ```python
 import pandas as pd
 
+
 df = pd.read_csv('data_sf.csv')
 clubs = df.Club.value_counts()
 print(len(clubs.index))
@@ -68,6 +71,7 @@ print(len(clubs.index))
 
 ```python
 import pandas as pd
+
 
 df = pd.read_csv('data_sf.csv')
 clubs = df.Club.value_counts()
@@ -84,10 +88,94 @@ print(clubs[clubs == clubs.max()].index)
 ```python
 import pandas as pd
 
+
 df = pd.read_csv('data_sf.csv')
 clubs = df.Club.value_counts()
 print(clubs.index[-1])
 print(clubs[clubs.index[-1]])
 # > Atlético Mineiro
 # > 6
+```
+
+## 6.4 Подсчет количества значений в процентах и по численным признакам
+Можно посчитать количество значений не в абсолютных числах, а в процентах от общего числа в серии.
+Для этого надо вызвать метод `value_counts()` с параметром `normalize=True`.
+
+Параметр `bins` метода `value_counts()` удобно использовать, когда мы хотим сгруппировать данные
+не по категориальному признаку (каким, например, является национальность),
+а по численному признаку (например, по возрасту).
+Параметр `bins` позволяет разбить диапазон значений на равные промежутки.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+print(df['Nationality'].value_counts(normalize=True))
+
+# Разобьем весь возможный диапазон зарплат на 4 равных промежутка
+s = df['Wage'].value_counts(bins=4)
+print(s)
+# > Name: Nationality, Length: 156, dtype: float64
+# > (435.999, 142000.0]     12818
+# > (142000.0, 283000.0]       61
+# > (283000.0, 424000.0]       16
+# > (424000.0, 565000.0]        2
+# Футболисты, которые получают самую большую зарплату (=входят в 3-ий промежуток)
+print(df.loc[(df['Wage'] > s.index[3].left) & (df['Wage'] <= s.index[3].right)])
+```
+
+## Задания
+**Задание 1**
+
+Данные об игроках каких позиций (Position) занимают более 10% датасета?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+positions = df['Position'].value_counts(normalize=True)
+print(positions[positions>0.10].index)
+# > Index(['GK', 'ST', 'CB'], dtype='object')
+```
+
+**Задание 2**
+
+Данные об игроках каких позиций (Position) занимают менее 1% датасета?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+positions = df['Position'].value_counts(normalize=True)
+print(positions[positions<0.01].index)
+# > Index(['LS', 'RS', 'RWB', 'LWB', 'CF', 'LF', 'RF', 'LAM', 'RAM'], dtype='object')
+```
+
+**Задание 3**
+
+В каких пределах находятся худшие 20% показателей точности ударов ногой (FKAccuracy)?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+fk_accuracy = df['FKAccuracy'].value_counts(bins=5, sort=False)
+print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
+```
+
+**Задание 4**
+
+Какие показатели точности ударов ногой демонстрирует большинство футболистов?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+fk_accuracy = df['FKAccuracy'].value_counts(bins=5)
+print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 ```
