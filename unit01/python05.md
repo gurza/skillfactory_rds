@@ -64,3 +64,15 @@ import pandas as pd
 
 football = pd.read_csv('data_sf.csv')
 ```
+
+
+## 5.4 Получение информации о датафрейме: head и tail
+Методы `.head()` или `.tail()` объекта DataFrame показывают первые или последние n строк таблицы, по умолчанию n=5.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+print(football.head(10))
+```
