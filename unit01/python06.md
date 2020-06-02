@@ -185,6 +185,7 @@ fk_accuracy = df['FKAccuracy'].value_counts(bins=5)
 print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 ```
 
+
 # 6.5 Функции unique и nunique и преобразование серии value_counts в датафрейм
 Метод `unique()` объекта Series возвращает список уникальных элементов из серии.
 Метод `nunique()` объекта Series возвращает количество уникальных значений в серии.
