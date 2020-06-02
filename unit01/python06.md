@@ -405,7 +405,7 @@ print(grouped_df.head(5))
 # > Name: Wage, dtype: int64
 ```
 
-## Задания
+### Задания
 
 **Задание 1**
 
