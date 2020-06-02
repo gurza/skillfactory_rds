@@ -464,3 +464,86 @@ s = df.groupby(['Position'])[['Wage', 'Value']].mean().sort_values(['Value'], as
 print(s.index[0])
 print(int(s['Wage'][s.index[0]]))
 ```
+
+
+## 6.9 Другие агрегирующие функции
+Функция `nunique()` позволяет посчитать количество уникальных значений по серии.
+Её лучше всего применять к тем колонкам датафрейма, в которых хранятся категорийные данные.
+
+Функция `count()` позволяет посчитать можно посчитать количество элементов в группе.
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+# the same result
+print(df['Club'].value_counts())
+print(df.groupby(['Club'])['Name'].count().sort_values(ascending=False))
+```
+
+Функция `median()` позволяет посчитать медианное значение.
+
+Функция `max()` позволяет посчитать максимальное значение внутри группы.
+
+Функция `min()` позволяет посчитать максимальное минимальное внутри группы.
+
+## Задания
+**Задание 1**
+
+Посчитайте среднюю (mean) и медианную (median) зарплату (Wage) футболистов из разных клубов (Club).
+В скольких клубах средняя и медианная зарплаты совпадают?
+
+Решение без подсказки.
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s_mean = df.groupby(['Club'])['Wage'].mean()
+s_median = df.groupby(['Club'])['Wage'].median()
+
+cnt = 0
+for club in s_mean.index:
+    if s_mean[club] == s_median[club]:
+        cnt += 1
+
+print(cnt)
+# > 52
+```
+
+**Подсказка**: чтобы в процессе группировки применить к данным одновременно две агрегирующие функции,
+необходимо указать их как аргументы метода agg:
+```python
+# df.groupby(столбец_для_группировки)[столбцы_для_отображения].agg(['функция_1', 'функция_2'])
+```
+
+Решение с подсказкой.
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Club'])['Wage'].agg(['mean', 'median'])
+print(len(s.loc[s['mean'] == s['median']]))
+# > 52
+```
+
+**Задание 2**
+
+Продолжаем работать с клубами, в которых средняя зарплата совпадает с медианной.  
+Каков максимальный размер средней зарплаты в этой группе клубов?  
+Как называется клуб, где игроки получают такую зарплату?
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Club'])['Wage'].agg(['mean', 'median'])
+s =  s.loc[s['mean'] == s['median']]
+club = s.sort_values(['mean'], ascending=False).index[0]
+print(int(s['mean'][club]))
+print(club)
+# > 13000
+# > Cruzeiro
+```
