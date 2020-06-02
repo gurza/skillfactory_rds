@@ -686,3 +686,36 @@ pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manches
     .pivot_table(values=['Wage'], index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
 print(pivot.loc['Argentina']['Wage']['FC Barcelona'])
 ```
+
+### Задания
+**Задание 1**
+
+Создайте сводную таблицу, содержащую сведения о количестве игроков, занимающих разные позиции в каждом клубе.
+Отсутствующие значения замените нулями.  
+Каково среднее количество вратарей (GK) в клубе? Ответ округлите до трёх цифр после запятой.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+pivot = df.pivot_table(index=['Position'], columns=['Club'], values='Name', aggfunc='count', fill_value=0)
+print(round(pivot.loc['GK'].mean(), 3))
+# > 2.525
+```
+
+**Задание 2**
+
+Используя таблицу, созданную на предыдущем шаге, определите,
+сколько клубов не содержат данных о центральных полузащитниках (CM).
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+pivot = df.pivot_table(index=['Position'], columns=['Club'], values='Name', aggfunc='count', fill_value=0)
+s = pivot.loc['CM'].reset_index()
+print(s.loc[s['CM'] == 0]['CM'].count())
+# > 136
+```
