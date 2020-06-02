@@ -139,3 +139,176 @@ football = pd.read_csv('data_sf.csv')
 print(football.std())
 print(football['Wage'].std())
 ```
+
+
+## 5.8 Извлекаем данные по условиям
+Чтобы выбрать данные из объекта DataFrame по определённому условию, нужно передать в квадратных скобках список (объект Siries), состоящий из True, False элементов. 
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+# Footballers which age > 20
+print(football[football.Age > 20])
+
+# Footballers which age > mean
+print(football[football.Age > football.Age.mean()])
+
+# Footballers which age < mean or footballers from "FC Barcelona"
+print(football[(football.Age < football.Age.mean()) | (football.Club == 'FC Barcelona')])
+```
+
+### Задания
+**Задание 1**
+
+Какова средняя скорость (SprintSpeed) футболистов, зарплата (Wage) которых выше среднего? Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+speed = football[football.Wage > football.Wage.mean()].SprintSpeed.mean()
+print(round(speed, 2))
+# > 67.57
+```
+
+**Задание 2**
+  
+Какова средняя скорость (SprintSpeed) футболистов, зарплата (Wage) которых ниже среднего? Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+speed = football[football.Wage < football.Wage.mean()].SprintSpeed.mean()
+print(round(speed, 2))
+# > 62.41
+```
+
+**Задание 3**
+  
+Какую позицию (Position) занимает футболист с самой высокой зарплатой (Wage)?
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+position = football[football.Wage == football.Wage.max()].Position[0]
+print(position)
+# > RF
+```
+
+**Задание 4**
+  
+Сколько пенальти (Penalties) забили бразильские (Nationality, Brazil) футболисты за период, данные о котором
+представлены в датасете?
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+penalties = football[football.Nationality == "Brazil"].Penalties.sum()
+print(penalties)
+# > 22789
+```
+
+**Задание 5**
+
+Укажите средний возраст (Age) игроков, у которых точность удара головой (HeadingAccuracy) > 50.
+Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+age = football[football.HeadingAccuracy > 50].Age.mean()
+print(round(age, 2))
+# > 25.59
+```
+
+**Задание 6**
+
+Укажите возраст (Age) самого молодого игрока, у которого хладнокровие (Composure) и реакция (Reactions) превышают 90%
+от максимального значения, представленного в датасете.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+max_composure = football.Composure.max()
+max_reactions = football.Reactions.max()
+age = football[(football.Composure > 0.9*max_composure) & (football.Reactions > 0.9*max_reactions)].Age.min()
+print(round(age, 2))
+# > 24
+```
+
+**Задание 7**
+
+Определите, насколько средняя реакция (Reactions) самых взрослых игроков (т.е. игроков, чей возраст (Age) равен
+максимальному) больше средней реакции самых молодых игроков. Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+mature_reactions = football[football.Age == football.Age.max()].Reactions.mean()
+young_reactions = football[football.Age == football.Age.min()].Reactions.mean()
+print(round(mature_reactions - young_reactions, 2))
+# > 22.64
+```
+
+**Задание 8**
+
+Из какой страны (Nationality) происходит больше всего игроков, чья стоимость (Value) превышает среднее значение?
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+nationalities = football[football.Value > football.Value.mean()].Nationality.value_counts()
+print(nationalities.index[0])
+# > Spain
+```
+
+**Задание 9**
+
+Определите, во сколько раз средняя зарплата (Wage) голкипера (Position, GK) с максимальным значением показателя
+"Рефлексы" (GKReflexes) выше средней зарплаты голкипера с максимальным значением  показателя "Владение мячом"
+(GKHandling).
+Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+
+wage1 = football[(football.Position == 'GK') & (football.GKReflexes == football.GKReflexes.max())].Wage.mean()
+wage2 = football[(football.Position == 'GK') & (football.GKHandling == football.GKHandling.max())].Wage.mean()
+print(round(wage1/wage2, 2))
+# > 2.77
+```
+
+**Задание 10**
+
+Определите, во сколько раз средняя сила удара (ShotPower) самых агрессивных игроков (игроков с максимальным значением
+показателя "Агрессивность" (Aggression)) выше средней силы удара игроков с минимальной агрессией.
+Ответ округлите до сотых.
+
+```python
+import pandas as pd
+
+football = pd.read_csv('data_sf.csv')
+power1 = football[football.Aggression == football.Aggression.max()].ShotPower.mean()
+power2 = football[football.Aggression == football.Aggression.min()].ShotPower.mean()
+print(round(power1/power2, 2))
+# > 2.08
+```
