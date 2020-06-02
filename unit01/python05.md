@@ -30,5 +30,18 @@ print(data.iloc[[0, 2]])
 ```
 
 
+# 5.2 Основные объекты Pandas: DataFrame
+Объект DataFrame лучше всего представлять себе в виде обычной таблицы.
+Столбцами в объекте DataFrame выступают объекты Series, строки которых являются их непосредственными элементами.
 
+```python
+import pandas as pd
 
+df_from_dict = pd.DataFrame({
+    'col1': [1, 2],
+    'col2': [3, 4],
+})
+df_from_list = pd.DataFrame([[1,2], [3,4]],
+                            columns=['col1', 'col2'],
+                            index=[0, 1])
+```
