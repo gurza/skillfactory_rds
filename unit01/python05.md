@@ -45,3 +45,22 @@ df_from_list = pd.DataFrame([[1,2], [3,4]],
                             columns=['col1', 'col2'],
                             index=[0, 1])
 ```
+
+
+# 5.3 Основные объекты Pandas: read_csv
+Функция `read_csv()` позволяет прочитать csv файл, возвращает объект DataFrame.
+
+Дополнительные полезные параметры функции `read_csv()`
+1. sep — разделитель данных, по умолчанию ',',
+1. decimal — разделитель числа на целую и дробную часть, по умолчанию '.',
+1. names — список с названиями колонок,
+1. skiprows — если файл содержит системную информацию, можно просто её пропустить.
+
+См. [официальную документацию](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html).
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+```
