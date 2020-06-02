@@ -655,7 +655,7 @@ import pandas as pd
 
 df = pd.read_csv('data_sf.csv')
 pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manchester United'])]\
-    .pivot_table(values=['Wage'], index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False)
+    .pivot_table(values=['Wage'], index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
 ```
 
 Параметры функции `pivot_table()`:
@@ -663,4 +663,26 @@ pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manches
 1. index - колонка, данные которой будут представлены строками сводной таблицы,
 1. columns - колонка, значения которой будут в столбцах,
 1. aggfunc - агрегирующую функция,
-1. margins - True - чтобы добавить столбец и строку с итоговыми значениями.
+1. margins - True - чтобы добавить столбец и строку с итоговыми значениями,
+1. fill_value - значение этого параметра будет использоваться вместо NaN (Not a Number).
+
+
+## 6.13 Замена отсутствующих значений и еще примеры сводных таблиц
+См. описание параметра `fill_value` в предыдущем разделе.
+
+Разница в доступе к данным, в зависимости от типа параметра values: строка или список.
+```python 
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+# string
+pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manchester United'])]\
+    .pivot_table(values='Wage', index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
+print(pivot.loc['Argentina']['FC Barcelona'])
+
+# list
+pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manchester United'])]\
+    .pivot_table(values=['Wage'], index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
+print(pivot.loc['Argentina']['Wage']['FC Barcelona'])
+```
