@@ -30,11 +30,17 @@ data = pd.Series(["Январь", "Февраль", "Март", "Апрель"],
 print(data.loc["Первый"])
 print(data["Первый"])
 print(data.iloc[0])
+# <class 'str'>
+# Январь
 
 # the same
 print(data.loc[["Первый", "Третий"]])
 print(data[["Первый", "Третий"]])
 print(data.iloc[[0, 2]])
+# <class 'pandas.core.series.Series'>
+# > Первый    Январь
+# > Третий      Март
+# > dtype: object
 ```
 
 
