@@ -46,6 +46,10 @@ df_from_list = pd.DataFrame([[1,2], [3,4]],
                             index=[0, 1])
 ```
 
+Получить доступ к колонке можно следующими способами:
+1. `df['column_name']`
+1. `df.column_name`
+
 
 # 5.3 Основные объекты Pandas: read_csv
 Функция `read_csv()` позволяет прочитать csv файл, возвращает объект DataFrame.
