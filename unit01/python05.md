@@ -76,3 +76,15 @@ import pandas as pd
 football = pd.read_csv('data_sf.csv')
 print(football.head(10))
 ```
+
+
+## 5.5 Получение информации о датафрейме: info
+Метод `.info()` объекта DataFrame возвращает детальную информацию о колонках.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+print(football.info())
+```
