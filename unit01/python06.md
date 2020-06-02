@@ -184,3 +184,67 @@ df = pd.read_csv('data_sf.csv')
 fk_accuracy = df['FKAccuracy'].value_counts(bins=5)
 print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 ```
+
+# 6.5 Функции unique и nunique и преобразование серии value_counts в датафрейм
+Метод `unique()` объекта Series возвращает список уникальных элементов из серии.
+Метод `nunique()` объекта Series возвращает количество уникальных значений в серии.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+# Список сборных
+print(df['Nationality'].unique())
+# > ['Argentina' 'Portugal' 'Brazil' ... 'Indonesia' 'Botswana']
+
+# Количество сборных
+print(len(df['Nationality'].unique()))
+print(df['Nationality'].nunique())
+# > 156
+```
+
+Иногда бывает полезно преобразовать серию, получившуюся в результате работы функции value_counts, в датафрейм.
+Для этого нужно у получившейся серии вызвать метод `reset_index()`.
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df['Nationality'].value_counts()
+s_df = s.reset_index()
+print(type(s_df))
+# > <class 'pandas.core.frame.DataFrame'>
+print(s_df)
+# >                     index  Nationality
+# > 0                 England         1368
+# > 1                 Germany          919
+# > 2                   Spain          671
+# > 3                  France          614
+# > 4               Argentina          574
+# > ..                    ...          ...
+# > 151           Philippines            1
+# > 152                Jordan            1
+# > 153  Central African Rep.            1
+# > 154              St Lucia            1
+# > 155              Ethiopia            1
+# > 
+# > [156 rows x 2 columns]
+
+s_df.columns = ['Nationality','Players Count']  # переименовать столбцы
+print(s_df)
+# >      Nationality  Players Count
+# > 0        England           1368
+# > 1        Germany            919
+# > 2          Spain            671
+# > 3         France            614
+# > 4      Argentina            574
+# > ..           ...            ...
+# > 151     Botswana              1
+# > 152     Ethiopia              1
+# > 153      Grenada              1
+# > 154     St Lucia              1
+# > 155  South Sudan              1
+# > 
+# > [156 rows x 2 columns]
+```
