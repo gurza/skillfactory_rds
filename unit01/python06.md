@@ -671,7 +671,7 @@ pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manches
 См. описание параметра `fill_value` в предыдущем разделе.
 
 Разница в доступе к данным, в зависимости от типа параметра values: строка или список.
-```python 
+```python
 import pandas as pd
 
 
