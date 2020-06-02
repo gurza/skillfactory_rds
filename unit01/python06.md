@@ -545,3 +545,81 @@ print(club)
 # > 13000
 # > Cruzeiro
 ```
+
+
+## 6.10 Задачи
+**Задача 1**
+
+С помощью функции groupby посчитайте сумму зарплат (Wage) футболистов клуба (Club) "Chelsea".
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Club'])['Wage'].sum()
+print(int(s['Chelsea']))
+# > 2035000
+```
+
+**Задача 2**
+
+Определите максимальную зарплату футболиста национальности (Nationality) Аргентина ("Argentina") в возрасте 20 лет.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Age'] == 20].groupby(['Nationality'])['Wage'].max()
+print(s['Argentina'])
+# > 54000
+```
+
+**Задача 3**
+
+Определите максимальную зарплату футболиста национальности (Nationality) Аргентина ("Argentina") в возрасте 30 лет.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Age'] == 30].groupby(['Nationality'])['Wage'].max()
+print(s['Argentina'])
+# > 300000
+```
+
+**Задача 4**
+
+Определите минимальную зарплату футболиста национальности (Nationality) Аргентина ("Argentina") в возрасте 30 лет.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Age'] == 30].groupby(['Nationality'])['Wage'].min()
+print(s['Argentina'])
+# > 1000
+```
+
+
+**Задача 5**
+
+Определите максимальную силу (Strength) и баланс (Balance) среди игроков клуба (Club) "FC Barcelona" 
+из Аргентины ("Argentina").
+Ответ введите через точку с запятой без пробела.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Club'] == 'FC Barcelona'].groupby(['Nationality'])[['Strength', 'Balance']].max()
+print(s)
+max_strength = int(s['Strength']['Argentina'])
+max_balance = int(s['Balance']['Argentina'])
+print('{};{}'.format(max_strength, max_balance))
+# > 59;95
+```
