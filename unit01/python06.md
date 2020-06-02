@@ -346,3 +346,77 @@ cnt_spain_21 = df.loc[(df['Nationality'] == 'Spain') & (df['Age'] == 21)][df.col
 print(round(cnt_spain_21/cnt_spain*100, 2))
 # > 11.77
 ```
+
+
+## 6.7 Функция groupby
+Перед нами стоит задача посчитать сумму зарплат по клубам, чтобы найти клуб с самой высокой зарплатой.
+Для решения будем использовать метод `group_by()` объектов DataFrame и Siries.
+
+На вход функции `groupby()` подается список с названием колонкок, по которым будет осуществляться группировка.
+Функция `group_by()` возвращает объект группировки, который хранит в себе информацию о том,
+какие строки датафрейма (по индексным номерам) соответствуют определенной группе.
+
+К объекту группировки можно применить агрегирующие функции.
+В результате получится датафрейм:
+* строки (index) - группы,
+* столбцы (column) - агрегированное значения параметров, к которым можно было применить агрегирующую функцию.  
+ 
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+grouped_df = df.groupby(['Club']).sum()
+print(grouped_df)
+# >                        Unnamed: 0  Age     Value    Wage  Crossing  ...  GKDiving  GKHandling  GKKicking  GKPositioning  GKReflexes
+# > Club                                                                ...                                                            
+# >  SSV Jahn Regensburg       129124  609  15195000   90000      1104  ...       405         406        368            409         424
+# > 1. FC Heidenheim 1846      117834  473  18290000   76000       961  ...       335         317        287            335         306
+# > 1. FC Kaiserslautern       167351  544  11195000   33000      1106  ...       392         373        348            368         356
+# ...
+# [650 rows x 38 columns]
+
+grouped_df = df.groupby(['Club'])['Wage'].sum()
+print(type(grouped_df))
+# > <class 'pandas.core.series.Series'>
+print(grouped_df)
+# > Club
+# >  SSV Jahn Regensburg      90000
+# > 1. FC Heidenheim 1846     76000
+# > 1. FC Kaiserslautern      33000
+# > 1. FC Köln                92000
+# > 1. FC Magdeburg           84000
+# >                           ...  
+# > Zagłębie Sosnowiec        27000
+# > Çaykur Rizespor          118000
+# > Örebro SK                 36000
+# > Östersunds FK             39000
+# > Śląsk Wrocław             50000
+# > Name: Wage, Length: 650, dtype: int64
+
+grouped_df = df.groupby(['Club'])['Wage'].sum().sort_values(ascending=False)
+print(grouped_df.head(5))
+# > Club
+# > Real Madrid          4138000
+# > FC Barcelona         3967000
+# > Manchester City      3097000
+# > Manchester United    2357000
+# > Juventus             2335000
+# > Name: Wage, dtype: int64
+```
+
+## Задания
+
+**Задание 1**
+
+Отметьте позиции (Position), по которым общая сумма зарплат (Wage) игроков превышает 5 млн евро в год.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.groupby(['Position'])['Wage'].sum().sort_values(ascending=False)
+print(s.loc[s > 5000000].index)
+# > Index(['ST', 'GK', 'CB', 'CM', 'LB', 'CAM', 'LM', 'RM', 'RB'], dtype='object', name='Position')
+```
