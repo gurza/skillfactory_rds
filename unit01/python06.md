@@ -460,7 +460,7 @@ import pandas as pd
 
 
 df = pd.read_csv('data_sf.csv')
-s = df.groupby(['Position'])[['Wage', 'Value']].mean().sort_values(['Value'],ascending=False)
+s = df.groupby(['Position'])[['Wage', 'Value']].mean().sort_values(['Value'], ascending=False)
 print(s.index[0])
 print(int(s['Wage'][s.index[0]]))
 ```
