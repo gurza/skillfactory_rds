@@ -250,3 +250,99 @@ print(s_df)
 # > 
 # > [156 rows x 2 columns]
 ```
+
+
+## 6.6 Задачи
+**Задача 1**
+
+У какого процента испанских специалистов (Nationality = 'Spain') зарплата (Wage) находится в пределах 25% минимума
+от наблюдаемого уровня зарплат?
+Ответ дайте в виде целого числа (округлите полученный результат) без знака %.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Nationality'] == 'Spain']['Wage'].value_counts(normalize=True, bins=4, sort=False)
+print(int(round(s[s.index[0]]*100, 0)))
+# > 97
+```
+
+**Задача 2**
+
+Укажите количество уникальных сборных (Nationality), к которым относятся футболисты,
+выступающие за клуб (Club) "Manchester United".
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+result = df.loc[df['Club'] == 'Manchester United']['Nationality'].nunique()
+print(result)
+# > 13
+```
+
+**Задача 3**
+
+С помощью функции unique определите двух футболистов из Бразилии (Nationality = 'Brazil'),
+выступающих за клуб (Club) 'Juventus'.
+Перечислите их имена (Name, как в датафрейме) через запятую в алфавитном порядке.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+names = df.loc[(df['Nationality'] == 'Brazil') & (df['Club'] == 'Juventus')]['Name'].unique()
+print(sorted(names))
+# > Alex Sandro,Douglas Costa
+```
+
+**Задача 4**
+
+Укажите, какой из клубов (Club) насчитывает большее количество футболистов возрастом (Age) старше 35 лет.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Age'] > 35]['Club'].value_counts()
+print(s.index[0])
+# > Club Atlético Huracán
+```
+
+**Задача 5**
+
+С помощью функции value_counts с параметром bins разбейте всех футболистов сборной (Nationality) Аргентины ('Argentina')
+на 4 равные группы.
+Укажите, сколько футболистов в возрасте от 34.75 до 41 года в сборной Аргентины.
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+s = df.loc[df['Nationality'] == 'Argentina']['Age'].value_counts(bins=4)
+i = pd.Interval(left=34.75, right=41.0)
+print(s[i])
+# > 49
+```
+
+**Задача 6**
+
+Сколько процентов футболистов из Испании (Nationality = 'Spain') имеют возраст (Age) 21 год?
+Введите с точностью до 2 знаков после запятой без указания знака % (например, 12.35).
+
+```python
+import pandas as pd
+
+
+df = pd.read_csv('data_sf.csv')
+cnt_spain = len(df.loc[df['Nationality'] == 'Spain'])
+cnt_spain_21 = len(df.loc[(df['Nationality'] == 'Spain') & (df['Age'] == 21)])
+print(round(cnt_spain_21/cnt_spain*100, 2))
+# > 11.77
+```
