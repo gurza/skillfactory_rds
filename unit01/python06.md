@@ -122,6 +122,12 @@ print(s)
 # > (424000.0, 565000.0]        2
 # Футболисты, которые получают самую большую зарплату (=входят в 3-ий промежуток)
 print(df.loc[(df['Wage'] > s.index[3].left) & (df['Wage'] <= s.index[3].right)])
+# > Name: Wage, dtype: int64
+# >    Unnamed: 0       Name  Age Nationality          Club      Value  ...  SlidingTackle GKDiving  GKHandling  GKKicking  GKPositioning  GKReflexes
+# > 0           0   L. Messi   31   Argentina  FC Barcelona  110500000  ...             26        6          11         15             14           8
+# > 7           7  L. Suárez   31     Uruguay  FC Barcelona   80000000  ...             38       27          25         31             33          37
+# > 
+# > [2 rows x 42 columns]
 ```
 
 ## Задания
