@@ -60,7 +60,7 @@ import pandas as pd
 
 
 df = pd.read_csv('data_sf.csv')
-clubs = df.Club.value_counts()
+clubs = df['Club'].value_counts()
 print(len(clubs.index))
 # > 650
 ```
@@ -74,7 +74,7 @@ import pandas as pd
 
 
 df = pd.read_csv('data_sf.csv')
-clubs = df.Club.value_counts()
+clubs = df['Club'].value_counts()
 print(clubs[clubs == clubs.max()].index)
 # > Index(['Shonan Bellmare', 'V-Varen Nagasaki'], dtype='object')
 ```
