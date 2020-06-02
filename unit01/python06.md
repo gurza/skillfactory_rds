@@ -89,7 +89,7 @@ import pandas as pd
 
 
 df = pd.read_csv('data_sf.csv')
-clubs = df.Club.value_counts()
+clubs = df['Club'].value_counts()
 print(clubs.index[-1])
 print(clubs[clubs.index[-1]])
 # > Atlético Mineiro
