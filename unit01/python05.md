@@ -120,3 +120,22 @@ print(football.describe())
 # stats for strings properties
 print(football.describe(include=['object']))
 ```
+
+
+## 5.7 Индексация и извлечение данных: статистические методы
+Статистические методы объектов DataFrame, Series
+1. `max()` - максимальное значение,
+1. `min()` - минимальное значение,
+1. `mean()` - среднее значение,
+1. `sum()` - сумма элементов,
+1. `count()` - количество ненулевых элементов,
+1. `std()` - стандартное отклонение.
+
+```python
+import pandas as pd
+
+
+football = pd.read_csv('data_sf.csv')
+print(football.std())
+print(football['Wage'].std())
+```
