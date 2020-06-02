@@ -341,8 +341,8 @@ import pandas as pd
 
 
 df = pd.read_csv('data_sf.csv')
-cnt_spain = len(df.loc[df['Nationality'] == 'Spain'])
-cnt_spain_21 = len(df.loc[(df['Nationality'] == 'Spain') & (df['Age'] == 21)])
+cnt_spain = df.loc[df['Nationality'] == 'Spain'][df.columns[0]].nunique()
+cnt_spain_21 = df.loc[(df['Nationality'] == 'Spain') & (df['Age'] == 21)][df.columns[0]].nunique()
 print(round(cnt_spain_21/cnt_spain*100, 2))
 # > 11.77
 ```
