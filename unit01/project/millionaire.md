@@ -760,6 +760,30 @@ for i, answer in enumerate(answers):
 
 ---
 
+**Вопрос 35**
+
+Какие актеры чаще всего снимаются в одном фильме вместе?
+
+```python
+from itertools import combinations
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+
+cnt = Counter()
+for cast_str in data['cast'].values:
+    for pair in combinations(cast_str.split('|'), 2):
+        pair_key = ' and '.join(sorted(pair))
+        cnt[pair_key] += 1
+
+most_common_pair = cnt.most_common(1)[0]
+print('{pair} - {cnt}'.format(pair=most_common_pair[0], cnt=most_common_pair[1]))
+```
+
+---
+
 **Вопрос 36**
 
 У какого из режиссеров самый высокий процент фильмов со сборами выше бюджета?
