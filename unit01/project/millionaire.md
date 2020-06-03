@@ -535,3 +535,41 @@ print('{title} {id} - {profit}'.format(
 # > K-19: The Widowmaker tt0267626 - -64831034
 
 ```
+
+---
+
+**Вопрос 25**
+
+Какой самый прибыльный год (в какой год студии заработали больше всего)?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.groupby(['release_year'])['profit'].sum().sort_values(ascending=False)
+year_most_profitable = selected.index[0]
+print(year_most_profitable)
+# > 2015
+```
+
+---
+
+**Вопрос 26**
+
+Какой самый прибыльный год для студии Warner Bros?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.loc[data['production_companies'].str.contains('Warner Bros')].groupby(['release_year'])['profit'].sum()\
+    .sort_values(ascending=False)
+print(selected)
+year_most_profitable = selected.index[0]
+print(year_most_profitable)
+# > 2014
+```
