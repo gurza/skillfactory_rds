@@ -60,3 +60,27 @@ import pandas as pd
 df_movies = pd.read_csv('movies.csv')
 print('Количество фильмов в таблице movies:', df_movies['movieId'].count())
 ```
+
+
+## 7.7 Объединяем таблицы
+У датафреймов ratings и movies есть общий столбец movieId.
+Мы можем объединить эти датафреймы в одну таблицу по этому столбцу. 
+
+```python
+import pandas as pd
+
+
+ratins = pd.read_csv('ratings.csv')
+movies = pd.read_csv('movies.csv')
+joined = ratins.merge(movies, on='movieId', how='left')
+print(joined)
+```
+
+Схематично `joined = left_df.merge(right_df, on='', how='')`
+
+**how** - параметр объединения записей. Он может иметь четыре значения: left, right, inner и outer.  
+При значении left берем все записи (movieId) из "левого" датафрейма (ratings) и ищем их соответствия в "правом" (movies).
+В итоговом датафрейме останутся только те значения, которым были найдены соответствия, то есть только значения из ratings.
+Аналогично при параметре right остаются только значения из "правого" датафрейма.
+Если совпадений между таблицами нет, то ставим нулевое значение.
+Значение inner оставляет только те записи (movieId), которые есть в обоих датафреймах, outer объединяет все варианты movieId в обоих датафреймах.
