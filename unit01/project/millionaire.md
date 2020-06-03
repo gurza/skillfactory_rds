@@ -317,3 +317,65 @@ directors = data.loc[data['profit'] > 0]['director'].value_counts()
 print('{name} - {cnt}'.format(name=directors.index[0], cnt=directors.iloc[0]))
 # > Ridley Scott - 12
 ```
+
+---
+
+**Вопрос 15**
+
+Кто из режиссеров принес больше всего прибыли?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+directors = data.groupby(['director'])['profit'].sum().sort_values(ascending=False)
+print('{name} - {cnt}'.format(name=directors.index[0], cnt=directors.iloc[0]))
+# > Peter Jackson - 5202593685
+```
+
+---
+
+**Вопрос 16**
+
+Какой актер принес больше всего прибыли?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+cnt = Counter()
+for movie in data[['cast', 'profit']].values:
+    for actor in movie[0].split('|'):
+        cnt[actor] += movie[1]
+actor_most_profitable = cnt.most_common(1)[0]
+print('{name} - {profit}'.format(name=actor_most_profitable[0], profit=actor_most_profitable[1]))
+# > Emma Watson - 6666245597
+```
+
+---
+
+**Вопрос 17**
+
+Какой актер принес меньше всего прибыли в 2012 году?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies_selected = data.loc[data['release_year'] == 2012][['cast', 'profit']]
+cnt = Counter()
+for movie in movies_selected.values:
+    for actor in movie[0].split('|'):
+        cnt[actor] += movie[1]
+actor_most_unprofitable = cnt.most_common()[-1]
+print('{name} - {profit}'.format(name=actor_most_unprofitable[0], profit=actor_most_unprofitable[1]))
+# > Kirsten Dunst - -68109207
+```
