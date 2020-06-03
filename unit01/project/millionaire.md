@@ -197,3 +197,24 @@ movies = data.loc[data['profit'] > 0]
 print(len(movies))
 # > 1478
 ```
+
+---
+
+**Вопрос 9**
+
+Какой фильм оказался самым кассовым в 2008 году?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies_2008 = data.loc[data['release_year'] == 2008]
+movie = movies_2008.loc[movies_2008['profit'] == movies_2008['profit'].max()]
+print('{title} {id} - {profit}'.format(
+    title=movie['original_title'].iloc[0], id=movie['imdb_id'].iloc[0],
+    profit=movie['profit'].iloc[0]
+))
+# > The Dark Knight tt0468569 - 816921825
+```
