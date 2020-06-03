@@ -513,3 +513,25 @@ company_most_common = cnt.most_common(1)[0]
 print('{company} - {profit}'.format(company=company_most_common[0], profit=company_most_common[1]))
 # > Columbia Pictures - 2501406608
 ```
+
+---
+
+**Вопрос 24**
+
+Самый убыточный фильм от Paramount Pictures?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies_paramount = data.loc[data['production_companies'].str.contains('Paramount Pictures')]
+print(movies_paramount['production_companies'])
+movie_most_unprofitable = movies_paramount.loc[movies_paramount['profit'] == movies_paramount['profit'].min()].iloc[0]
+print('{title} {id} - {profit}'.format(
+    title=movie_most_unprofitable['original_title'], id=movie_most_unprofitable['imdb_id'],
+    profit=movie_most_unprofitable['profit']))
+# > K-19: The Widowmaker tt0267626 - -64831034
+
+```
