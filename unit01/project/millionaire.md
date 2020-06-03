@@ -218,3 +218,24 @@ print('{title} {id} - {profit}'.format(
 ))
 # > The Dark Knight tt0468569 - 816921825
 ```
+
+---
+
+**Вопрос 10**
+
+Самый убыточный фильм за период с 2012 по 2014 гг. (включительно)?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies_selected = data.loc[(data['release_year'] >= 2012) & (data['release_year'] <= 2014)]
+movie = movies_selected.loc[movies_selected['profit'] == movies_selected['profit'].min()]
+print('{title} {id} - {profit}'.format(
+    title=movie['original_title'].iloc[0], id=movie['imdb_id'].iloc[0],
+    profit=movie['profit'].iloc[0]
+))
+# > The Lone Ranger tt1210819 - -165710090
+```
