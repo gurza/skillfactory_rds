@@ -21,3 +21,15 @@
 * movieId — идентификатор фильма,
 * title — название фильма,
 * genres — список жанров, к которым относится фильм.
+
+
+## 7.3 Тестовые вопросы
+```python
+import pandas as pd
+
+
+df_ratings = pd.read_csv('ratings.csv')
+print('Количество строк в файле рейтингов:', df_ratings['rating'].count())
+print('Минимальная оценка:', df_ratings['rating'].min())
+print('Максимальная оценка:', df_ratings['rating'].max())
+```
