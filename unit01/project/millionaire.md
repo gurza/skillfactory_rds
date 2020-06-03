@@ -682,3 +682,24 @@ print(len(data.loc[data['production_companies'].str.contains('Four By Two Produc
 print(data.loc[data['production_companies'].str.contains('Four By Two Productions')]['original_title'].iloc[0])
 # > Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan
 ```
+
+---
+
+**Вопрос 33**
+
+Сколько разных слов используется в названиях фильмов (без учета регистра)?
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+titles = data['original_title']
+unique_words = list()
+for title in titles:
+    for word in title.split():
+        word_lower = word.lower()
+        if word_lower not in unique_words:
+            unique_words.append(word_lower)
+print(len(unique_words))
+# > 2461
+```
