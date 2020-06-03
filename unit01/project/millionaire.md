@@ -379,3 +379,27 @@ actor_most_unprofitable = cnt.most_common()[-1]
 print('{name} - {profit}'.format(name=actor_most_unprofitable[0], profit=actor_most_unprofitable[1]))
 # > Kirsten Dunst - -68109207
 ```
+
+---
+
+**Вопрос 18**
+
+Какой актер снялся в большем количестве высокобюджетных фильмов?
+Примечание: в фильмах, где бюджет выше среднего по данной выборке.
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.loc[data['budget'] > data['budget'].mean()]['cast']
+cnt = Counter()
+for cast_str in selected:
+    for actor in cast_str.split('|'):
+        cnt[actor] += 1
+actor_most_common = cnt.most_common(1)[0]
+print('{name} - {cnt}'.format(name=actor_most_common[0], cnt=actor_most_common[1]))
+# > Matt Damon - 18
+```
