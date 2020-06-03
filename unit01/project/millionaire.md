@@ -426,3 +426,92 @@ genre_most_common = cnt.most_common(1)[0]
 print('{genre} - {cnt}'.format(genre=genre_most_common[0], cnt=genre_most_common[1]))
 # > Action - 17
 ```
+
+---
+
+**Вопрос 20**
+
+Какая студия сняла больше всего фильмов?
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+production_companies = data['production_companies']
+cnt = Counter()
+for companies_str in production_companies:
+    for company in companies_str.split('|'):
+        cnt[company] += 1
+company_most_common = cnt.most_common(1)[0]
+print('{company} - {cnt}'.format(company=company_most_common[0], cnt=company_most_common[1]))
+# > Universal Pictures - 173
+```
+
+---
+
+**Вопрос 21**
+
+Какая студия сняла больше всего фильмов в 2015 году?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+production_companies = data.loc[data['release_year'] == 2015]['production_companies']
+cnt = Counter()
+for companies_str in production_companies:
+    for company in companies_str.split('|'):
+        cnt[company] += 1
+company_most_common = cnt.most_common(1)[0]
+print('{company} - {cnt}'.format(company=company_most_common[0], cnt=company_most_common[1]))
+# > Warner Bros. - 12
+```
+
+---
+
+**Вопрос 22**
+
+Какая студия заработала больше всего денег в жанре комедий за все время?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.loc[data['genres'].str.contains('Comedy')][['production_companies', 'profit']]
+cnt = Counter()
+for row in selected.values:
+    for company in row[0].split('|'):
+        cnt[company] += row[1]
+company_most_common = cnt.most_common(1)[0]
+print('{company} - {profit}'.format(company=company_most_common[0], profit=company_most_common[1]))
+# > Universal Pictures - 8961545581
+```
+
+---
+
+**Вопрос 23**
+
+Какая студия заработала больше всего денег в 2012 году?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.loc[data['release_year'] == 2012][['production_companies', 'profit']]
+cnt = Counter()
+for row in selected.values:
+    for company in row[0].split('|'):
+        cnt[company] += row[1]
+company_most_common = cnt.most_common(1)[0]
+print('{company} - {profit}'.format(company=company_most_common[0], profit=company_most_common[1]))
+# > Columbia Pictures - 2501406608
+```
