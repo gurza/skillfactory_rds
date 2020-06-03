@@ -309,3 +309,39 @@ for root, dirs, files in os.walk('data'):
 # > data ['subdata'] ['ratings_8.txt', 'ratings_9.txt', 'ratings_10.txt', 'ratings_7.txt', 'ratings_6.txt', 'ratings_4.txt', 'ratings_5.txt']
 # > data/subdata [] ['ratings_1.txt', 'ratings_2.txt', 'ratings_3.txt']
 ```
+
+
+## 7.13 Склеивание датафреймов
+Функция `concat()` библиотеки Pandas используется для объединения нескольких датафреймов в один.
+
+```python
+import pandas as pd
+
+df1 = pd.read_csv('data/ratings_1.txt')
+df2 = pd.read_csv('data/ratings_2.txt')
+total_df = pd.concat([df1, df2])
+print(total_df)
+
+# axis=1 - чтобы склеить датафрейсы по горизонтали, если у них совпадает кол-во строк
+total_df = pd.concat([df1, df2], axis=1)
+print(total_df) 
+```
+
+### Задание
+
+Напишите цикл, который собирает содержимое файлов папки data в единый датафрейм data.  
+Сколько строк в датафрейме data?
+
+```python
+import os
+import pandas as pd
+
+
+data = pd.DataFrame(columns=['userId', 'movieId', 'rating', 'timestamp'])
+for data_filename in os.listdir('data'):
+    temp = pd.read_csv(os.path.join('data', data_filename), names=['userId', 'movieId', 'rating', 'timestamp'])
+    data = pd.concat([data, temp])
+
+print(len(data))
+# > 100004
+```
