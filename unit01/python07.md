@@ -285,3 +285,12 @@ print(merged['revenue'].sum())
 
 ## 7.11 Объединяем выгрузки
 Объединить набор файлов в один датафрейм будем с помощью библиотеки **os**.
+
+```python
+import os
+
+
+files = os.listdir('data')
+print(files)
+# > ['ratings_8.txt', 'ratings_9.txt', 'ratings_10.txt', 'ratings_7.txt', 'ratings_6.txt', 'ratings_4.txt', 'ratings_5.txt', 'ratings_1.txt', 'ratings_2.txt', 'ratings_3.txt']
+```
