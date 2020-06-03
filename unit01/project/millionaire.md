@@ -573,3 +573,40 @@ year_most_profitable = selected.index[0]
 print(year_most_profitable)
 # > 2014
 ```
+
+---
+
+**Вопрос 27**
+
+В каком месяце за все годы суммарно вышло больше всего фильмов?
+
+```python
+import datetime
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['release_month'] = data['release_date'].apply(lambda dt: datetime.datetime.strptime(dt, "%m/%d/%Y").month)
+
+selected = data['release_month'].value_counts()
+month = selected.index[0]
+print(datetime.date(1900, month, 1).strftime('%B'))
+# > September
+```
+
+**Вопрос 28**
+
+Сколько суммарно вышло фильмов летом (за июнь, июль, август)?
+
+```python
+import datetime
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['release_month'] = data['release_date'].apply(lambda dt: datetime.datetime.strptime(dt, "%m/%d/%Y").month)
+
+movies_sum = len(data.loc[data['release_month'].isin([6, 7, 8])])
+print(movies_sum)
+# > 450
+```
