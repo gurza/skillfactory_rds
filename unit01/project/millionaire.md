@@ -138,3 +138,45 @@ print('Answer:', answer_correct)
 # > Median runtime: 106.5
 # > Answer: 106
 ```
+
+---
+
+**Вопрос 6**
+
+Какой самый прибыльный фильм?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movie_most_profitable = data[data['profit'] == data['profit'].max()]
+print(movie_most_profitable)
+print('{title} {id} - {profit}'.format(
+    title=movie_most_profitable['original_title'].iloc[0], id=movie_most_profitable['imdb_id'].iloc[0],
+    profit=movie_most_profitable['profit'].iloc[0]
+))
+# > Avatar tt0499549 - 2544505847
+```
+
+---
+
+**Вопрос 7**
+
+Какой фильм самый убыточный?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movie_most_unprofitable = data[data['profit'] == data['profit'].min()]
+print(movie_most_unprofitable)
+print('{title} {id} - {profit}'.format(
+    title=movie_most_unprofitable['original_title'].iloc[0], id=movie_most_unprofitable['imdb_id'].iloc[0],
+    profit=movie_most_unprofitable['profit'].iloc[0]
+))
+# > The Warrior's Way tt1032751 - -413912431
+```
