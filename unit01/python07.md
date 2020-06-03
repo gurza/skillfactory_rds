@@ -281,3 +281,7 @@ merged['revenue'] = merged['stock_count'] * merged['price']
 print(merged['revenue'].sum())
 # > 19729490
 ```
+
+
+## 7.11 Объединяем выгрузки
+Объединить набор файлов в один датафрейм будем с помощью библиотеки **os**.
