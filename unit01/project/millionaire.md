@@ -239,3 +239,48 @@ print('{title} {id} - {profit}'.format(
 ))
 # > The Lone Ranger tt1210819 - -165710090
 ```
+
+---
+
+**Вопрос 11**
+
+Какого жанра фильмов больше всего?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+movies_genres = data['genres']
+cnt = Counter()
+for genre_str in movies_genres:
+    for genre in genre_str.split('|'):
+        cnt[genre] += 1
+genre_most_common = cnt.most_common(1)[0]
+print('{genre} - {cnt}'.format(genre=genre_most_common[0], cnt=genre_most_common[1]))
+# > Drama - 782
+```
+
+---
+
+**Вопрос 12**
+
+Какого жанра среди прибыльных фильмов больше всего?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies_genres = data.loc[data['profit'] > 0]['genres']
+cnt = Counter()
+for genre_str in movies_genres:
+    for genre in genre_str.split('|'):
+        cnt[genre] += 1
+genre_most_common = cnt.most_common(1)[0]
+print('{genre} - {cnt}'.format(genre=genre_most_common[0], cnt=genre_most_common[1]))
+# > Drama - 560
+```
