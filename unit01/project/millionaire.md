@@ -738,6 +738,8 @@ for i, answer in enumerate(answers):
 
 У какого из режиссеров самый высокий процент фильмов со сборами выше бюджета?
 
+**Fail**
+
 ```python
 import pandas as pd
 
