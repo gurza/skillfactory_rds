@@ -105,3 +105,179 @@ import pandas as pd
 movies = pd.read_csv('movies.csv')
 movies.drop_duplicates(subset='movieId', keep='first', inplace=True)
 ```
+
+
+## 7.10 Задания
+В этой серии заданий мы разберемся с данными новых поступлений интернет-магазина.
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394], 
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132], 
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+```
+
+**Задание 1**
+
+Объедините получившиеся датафреймы по столбцу item_id с типом outer.  
+Определите, модель с каким item_id есть в статистике продаж purchase_df, но не учтена на складе.
+Введите ответ в виде целого числа.
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394], 
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132], 
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+
+joined = items_df.merge(purchase_df, on='item_id', how='outer')
+items_na = joined.loc[joined['stock_count'].isna()]['item_id']
+for item_id in items_na:
+    print(item_id)
+# > 103845
+```
+
+**Задание 2**
+
+Решите обратную задачу: модель с каким item_id есть на складе, но не имела ни одной продажи?
+Введите ответ в виде целого числа.
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394],
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132],
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+
+joined = items_df.merge(purchase_df, on='item_id', how='outer')
+items_na = joined.loc[joined['purchase_id'].isna()]['item_id']
+for item_id in items_na:
+    print(item_id)
+# > 312394
+```
+
+**Задание 3**
+
+Сформируйте датафрейм merged, в котором в результате объединения purchase_df и items_df останутся модели,
+которые учтены на складе и имели продажи.
+Сколько всего таких моделей?
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394],
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132],
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+
+merged = items_df.merge(purchase_df, on='item_id', how='inner')
+print(len(merged))
+# > 9
+```
+
+**Задание 4**
+
+Посчитайте объем выручки для каждой модели, которую можно получить, распродав все остатки на складе.
+Модель с каким item_id имеет максимальное значение выручки после распродажи остатков?
+Ответ дайте в виде целого числа.
+
+Примечание: перемножение столбцов датафрейма можно производить разными способами,
+но самый простой - перемножение "в лоб" вида df['col1'] = df['col2'] * df['col3'].
+Для присоединения новых данных к датафрейму тоже можно использовать различные методы, включая функцию .append(),
+которая позволяет присоединять к датафрейму другой датафрейм, серии или словари.
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394],
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132],
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+
+merged = items_df.merge(purchase_df, on='item_id', how='inner')
+merged['revenue'] = merged['stock_count'] * merged['price']
+print(merged.loc[merged['revenue'] == merged['revenue'].max()]['item_id'].iloc[0])
+# > 382043
+```
+
+**Задание 5**
+
+Посчитайте итоговую выручку из прошлого задания по всем моделям. Ответ дайте в виде целого числа.
+
+```python
+import pandas as pd
+
+
+items_dict = {
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 100132, 312394],
+    'vendor': ['Samsung', 'LG', 'Apple', 'Apple', 'LG', 'Apple', 'Samsung', 'Samsung', 'LG', 'ZTE'],
+    'stock_count': [54, 33, 122, 18, 102, 43, 77, 143, 60, 19]
+}
+items_df = pd.DataFrame(items_dict)
+
+purchase_log = {
+    'purchase_id': [101, 101, 101, 112, 121, 145, 145, 145, 145, 221],
+    'item_id': [417283, 849734, 132223, 573943, 19475, 3294095, 382043, 302948, 103845, 100132],
+    'price': [13900, 5330, 38200, 49990, 9890, 33000, 67500, 34500, 89900, 11400]
+}
+purchase_df = pd.DataFrame(purchase_log)
+
+merged = items_df.merge(purchase_df, on='item_id', how='inner')
+merged['revenue'] = merged['stock_count'] * merged['price']
+print(merged['revenue'].sum())
+# > 19729490
+```
