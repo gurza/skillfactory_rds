@@ -39,7 +39,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('../python05/data_sf.csv')
 small_df = df[df.columns[1:8]].head(25)
 ```
 
@@ -55,7 +55,7 @@ small_df = df[df.columns[1:8]].head(25)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 small_df = df[df.columns[1:8]].head(25)
 s = small_df['Nationality'].value_counts()
 
@@ -76,7 +76,7 @@ print('Сборные, в которых больше одного футбол�
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 clubs = df['Club'].value_counts()
 print(len(clubs.index))
 # > 650
@@ -90,7 +90,7 @@ print(len(clubs.index))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 clubs = df['Club'].value_counts()
 print(clubs[clubs == clubs.max()].index)
 # > Index(['Shonan Bellmare', 'V-Varen Nagasaki'], dtype='object')
@@ -105,7 +105,7 @@ print(clubs[clubs == clubs.max()].index)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 clubs = df['Club'].value_counts()
 print(clubs.index[-1])
 print(clubs[clubs.index[-1]])
@@ -127,7 +127,7 @@ print(clubs[clubs.index[-1]])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 print(df['Nationality'].value_counts(normalize=True))
 
 # Разобьем весь возможный диапазон зарплат на 4 равных промежутка
@@ -157,7 +157,7 @@ print(df.loc[(df['Wage'] > s.index[3].left) & (df['Wage'] <= s.index[3].right)])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 positions = df['Position'].value_counts(normalize=True)
 print(positions[positions>0.10].index)
 # > Index(['GK', 'ST', 'CB'], dtype='object')
@@ -171,7 +171,7 @@ print(positions[positions>0.10].index)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 positions = df['Position'].value_counts(normalize=True)
 print(positions[positions<0.01].index)
 # > Index(['LS', 'RS', 'RWB', 'LWB', 'CF', 'LF', 'RF', 'LAM', 'RAM'], dtype='object')
@@ -185,7 +185,7 @@ print(positions[positions<0.01].index)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 fk_accuracy = df['FKAccuracy'].value_counts(bins=5, sort=False)
 print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 ```
@@ -198,7 +198,7 @@ print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 fk_accuracy = df['FKAccuracy'].value_counts(bins=5)
 print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 ```
@@ -212,7 +212,7 @@ print(fk_accuracy.index[0].left, fk_accuracy.index[0].right)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 # Список сборных
 print(df['Nationality'].unique())
 # > ['Argentina' 'Portugal' 'Brazil' ... 'Indonesia' 'Botswana']
@@ -229,7 +229,7 @@ print(df['Nationality'].nunique())
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df['Nationality'].value_counts()
 s_df = s.reset_index()
 print(type(s_df))
@@ -280,7 +280,7 @@ print(s_df)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Nationality'] == 'Spain']['Wage'].value_counts(normalize=True, bins=4, sort=False)
 print(int(round(s[s.index[0]]*100, 0)))
 # > 97
@@ -295,7 +295,7 @@ print(int(round(s[s.index[0]]*100, 0)))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 result = df.loc[df['Club'] == 'Manchester United']['Nationality'].nunique()
 print(result)
 # > 13
@@ -311,7 +311,7 @@ print(result)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 names = df.loc[(df['Nationality'] == 'Brazil') & (df['Club'] == 'Juventus')]['Name'].unique()
 print(sorted(names))
 # > Alex Sandro,Douglas Costa
@@ -325,7 +325,7 @@ print(sorted(names))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Age'] > 35]['Club'].value_counts()
 print(s.index[0])
 # > Club Atlético Huracán
@@ -341,7 +341,7 @@ print(s.index[0])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Nationality'] == 'Argentina']['Age'].value_counts(bins=4)
 i = pd.Interval(left=34.75, right=41.0)
 print(s[i])
@@ -357,7 +357,7 @@ print(s[i])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 cnt_spain = df.loc[df['Nationality'] == 'Spain']['Name'].count()
 cnt_spain_21 = df.loc[(df['Nationality'] == 'Spain') & (df['Age'] == 21)]['Name'].count()
 print(round(cnt_spain_21/cnt_spain*100, 2))
@@ -382,7 +382,7 @@ print(round(cnt_spain_21/cnt_spain*100, 2))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 grouped_df = df.groupby(['Club']).sum()
 print(grouped_df)
 # >                        Unnamed: 0  Age     Value    Wage  Crossing  ...  GKDiving  GKHandling  GKKicking  GKPositioning  GKReflexes
@@ -431,7 +431,7 @@ print(grouped_df.head(5))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Position'])['Wage'].sum().sort_values(ascending=False)
 print(s.loc[s > 5000000].index)
 # > Index(['ST', 'GK', 'CB', 'CM', 'LB', 'CAM', 'LM', 'RM', 'RB'], dtype='object', name='Position')
@@ -446,7 +446,7 @@ print(s.loc[s > 5000000].index)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Nationality'])[['Wage','Age','ShotPower']].mean().sort_values(['Wage'],ascending=False)
 print(s.head(10))
 # >                             Wage        Age  ShotPower
@@ -474,7 +474,7 @@ print(s.head(10))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Position'])[['Wage', 'Value']].mean().sort_values(['Value'], ascending=False)
 print(s.index[0])
 print(int(s['Wage'][s.index[0]]))
@@ -490,7 +490,7 @@ print(int(s['Wage'][s.index[0]]))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 # the same result
 print(df['Club'].value_counts())
 print(df.groupby(['Club'])['Name'].count().sort_values(ascending=False))
@@ -513,7 +513,7 @@ print(df.groupby(['Club'])['Name'].count().sort_values(ascending=False))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s_mean = df.groupby(['Club'])['Wage'].mean()
 s_median = df.groupby(['Club'])['Wage'].median()
 
@@ -537,7 +537,7 @@ print(cnt)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Club'])['Wage'].agg(['mean', 'median'])
 print(len(s.loc[s['mean'] == s['median']]))
 # > 52
@@ -553,7 +553,7 @@ print(len(s.loc[s['mean'] == s['median']]))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Club'])['Wage'].agg(['mean', 'median'])
 s =  s.loc[s['mean'] == s['median']]
 club = s.sort_values(['mean'], ascending=False).index[0]
@@ -573,7 +573,7 @@ print(club)
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.groupby(['Club'])['Wage'].sum()
 print(int(s['Chelsea']))
 # > 2035000
@@ -587,7 +587,7 @@ print(int(s['Chelsea']))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Age'] == 20].groupby(['Nationality'])['Wage'].max()
 print(s['Argentina'])
 # > 54000
@@ -601,7 +601,7 @@ print(s['Argentina'])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Age'] == 30].groupby(['Nationality'])['Wage'].max()
 print(s['Argentina'])
 # > 300000
@@ -615,7 +615,7 @@ print(s['Argentina'])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Age'] == 30].groupby(['Nationality'])['Wage'].min()
 print(s['Argentina'])
 # > 1000
@@ -632,7 +632,7 @@ print(s['Argentina'])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 s = df.loc[df['Club'] == 'FC Barcelona'].groupby(['Nationality'])[['Strength', 'Balance']].max()
 print(s)
 max_strength = int(s['Strength']['Argentina'])
@@ -670,7 +670,7 @@ print('{};{}'.format(max_strength, max_balance))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manchester United'])]\
     .pivot_table(values=['Wage'], index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
 ```
@@ -692,7 +692,7 @@ pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manches
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 # string
 pivot = df.loc[df['Club'].isin(['FC Barcelona','Real Madrid','Juventus','Manchester United'])]\
     .pivot_table(values='Wage', index=['Nationality'], columns=['Club'], aggfunc='sum', margins=False, fill_value=0)
@@ -715,7 +715,7 @@ print(pivot.loc['Argentina']['Wage']['FC Barcelona'])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.pivot_table(index=['Position'], columns=['Club'], values='Name', aggfunc='count', fill_value=0)
 print(round(pivot.loc['GK'].mean(), 3))
 # > 2.525
@@ -730,7 +730,7 @@ print(round(pivot.loc['GK'].mean(), 3))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.pivot_table(index=['Position'], columns=['Club'], values='Name', aggfunc='count', fill_value=0)
 s = pivot.loc['CM'].reset_index()
 print(s.loc[s['CM'] == 0]['CM'].count())
@@ -748,7 +748,7 @@ print(s.loc[s['CM'] == 0]['CM'].count())
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.pivot_table(index=['Nationality'], columns=['Club'], values='Wage', aggfunc='sum', fill_value=0)
 print(pivot.loc['Russia']['AS Monaco'])
 # > 61000
@@ -764,7 +764,7 @@ print(pivot.loc['Russia']['AS Monaco'])
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.pivot_table(index=['Position', 'Club'], values='SprintSpeed', aggfunc='mean', fill_value=0)\
     .sort_values('SprintSpeed', ascending=False)
 print(pivot.head(3))
@@ -784,7 +784,7 @@ print(pivot.head(3))
 import pandas as pd
 
 
-df = pd.read_csv('data_sf.csv')
+df = pd.read_csv('python05/data_sf.csv')
 pivot = df.pivot_table(index=['Position', 'Club'], values='SprintSpeed', aggfunc='mean', fill_value=0)\
     .sort_values('SprintSpeed', ascending=False)
 print(pivot.loc['ST'].head(3))
