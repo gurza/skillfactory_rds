@@ -284,3 +284,36 @@ genre_most_common = cnt.most_common(1)[0]
 print('{genre} - {cnt}'.format(genre=genre_most_common[0], cnt=genre_most_common[1]))
 # > Drama - 560
 ```
+
+---
+
+**Вопрос 13**
+
+Кто из режиссеров снял больше всего фильмов?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+directors = data['director'].value_counts()
+print('{name} - {cnt}'.format(name=directors.index[0], cnt=directors.iloc[0]))
+# > Steven Soderbergh - 13
+```
+
+---
+
+**Вопрос 14**
+
+Кто из режиссеров снял больше всего прибыльных фильмов?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+directors = data.loc[data['profit'] > 0]['director'].value_counts()
+print('{name} - {cnt}'.format(name=directors.index[0], cnt=directors.iloc[0]))
+# > Ridley Scott - 12
+```
