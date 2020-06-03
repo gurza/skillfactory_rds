@@ -731,3 +731,32 @@ for i, answer in enumerate(answers):
         print("The answer is", i+1, answer)
 # > The answer is 1 ['Inside Out', 'Gone Girl', '12 Years a Slave']
 ```
+
+---
+
+**Вопрос 36**
+
+У какого из режиссеров самый высокий процент фильмов со сборами выше бюджета?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+
+movies_count = len(data)
+directors = data['director'].unique()
+profit_share = list()
+for director in directors:
+    director_count = len(data.loc[(data['director'] == director) & (data['revenue'] > 0)])
+    profit_share.append(director_count / movies_count)
+directors_profit_share = pd.Series(profit_share, index=directors).sort_values(ascending=False)
+print('{name} - {share}%'.format(
+    name=directors_profit_share.index[0], share=round(directors_profit_share.iloc[0] * 100, 2)))
+# > Steven Soderbergh - 0.69%
+
+answers = 'Quentin Tarantino, Steven Soderbergh, Robert Rodriguez, Christopher Nolan, Clint Eastwood'.split(', ')
+for answer in answers:
+    print(answer, round(directors_profit_share[answer]*100, 2), sep=", ")
+```
