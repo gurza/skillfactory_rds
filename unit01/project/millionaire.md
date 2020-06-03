@@ -610,3 +610,22 @@ movies_sum = len(data.loc[data['release_month'].isin([6, 7, 8])])
 print(movies_sum)
 # > 450
 ```
+
+---
+
+**Вопрос 29**
+
+Какой режиссер выпускает (суммарно по годам) больше всего фильмов зимой?
+
+```python
+import datetime
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['release_month'] = data['release_date'].apply(lambda dt: datetime.datetime.strptime(dt, "%m/%d/%Y").month)
+
+director = data.loc[data['release_month'].isin([11, 12, 1])]['director'].value_counts().head(1)
+print('{name} - {cnt}'.format(name=director.index[0], cnt=director.iloc[0]))
+# > Peter Jackson - 8
+```
