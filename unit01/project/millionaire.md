@@ -393,7 +393,6 @@ import pandas as pd
 
 
 data = pd.read_csv('data.csv')
-data['profit'] = data['revenue'] - data['budget']
 selected = data.loc[data['budget'] > data['budget'].mean()]['cast']
 cnt = Counter()
 for cast_str in selected:
@@ -416,7 +415,6 @@ import pandas as pd
 
 
 data = pd.read_csv('data.csv')
-data['profit'] = data['revenue'] - data['budget']
 selected = data.loc[data['cast'].str.contains('Nicolas Cage')]['genres']
 cnt = Counter()
 for genre_str in selected:
