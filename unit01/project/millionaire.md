@@ -180,3 +180,20 @@ print('{title} {id} - {profit}'.format(
 ))
 # > The Warrior's Way tt1032751 - -413912431
 ```
+
+---
+
+**Вопрос 8**
+
+У скольких фильмов из датасета объем сборов оказался выше бюджета?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+movies = data.loc[data['profit'] > 0]
+print(len(movies))
+# > 1478
+```
