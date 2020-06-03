@@ -345,3 +345,56 @@ for data_filename in os.listdir('data'):
 print(len(data))
 # > 100004
 ```
+
+
+## 7.15 Тесты
+Решение некоторых задач.
+
+**Задание 3**
+
+Сколько раз была выставлена низшая оценка 0.5 в наших рейтингах? Используйте файл ratings.csv.
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('ratings.csv')
+print(len(data.loc[data['rating'] == data['rating'].min()]))
+# > 1370
+```
+
+**Задание 4**
+
+Объедините датафреймы ratings и movies, используя параметр how='outer'.  
+Сколько строк в получившемся датафрейме?
+
+```python
+import pandas as pd
+
+
+ratings = pd.read_csv('ratings.csv')
+movies = pd.read_csv('movies.csv')
+joined = ratings.merge(movies, on='movieId', how='outer')
+print(len(joined))
+# > 100854
+```
+
+**Задание 5**
+
+Найдите в датафрейме movies фильм с movieId=3456.  
+Какой у него год выпуска?
+
+```python
+import re
+import pandas as pd
+
+
+ratings = pd.read_csv('ratings.csv')
+movies = pd.read_csv('movies.csv')
+joined = ratings.merge(movies, on='movieId', how='outer')
+
+title = joined.loc[joined['movieId'] == 3456]['title'].iloc[0]
+year = re.search(r'\((\d{4})\)$', title).group(1)
+year = int(year)
+print(year)
+```
