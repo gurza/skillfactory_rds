@@ -294,3 +294,18 @@ files = os.listdir('data')
 print(files)
 # > ['ratings_8.txt', 'ratings_9.txt', 'ratings_10.txt', 'ratings_7.txt', 'ratings_6.txt', 'ratings_4.txt', 'ratings_5.txt', 'ratings_1.txt', 'ratings_2.txt', 'ratings_3.txt']
 ```
+
+
+## 7.12 Выгрузка из вложенных файлов
+Если бы в папке 'data' содержались вложенные папки, то получить их имена отдельно от названий файлов можно было бы
+с помощью метода walk.
+
+```python
+import os
+
+
+for root, dirs, files in os.walk('data'):
+    print(root, dirs, files)
+# > data ['subdata'] ['ratings_8.txt', 'ratings_9.txt', 'ratings_10.txt', 'ratings_7.txt', 'ratings_6.txt', 'ratings_4.txt', 'ratings_5.txt']
+# > data/subdata [] ['ratings_1.txt', 'ratings_2.txt', 'ratings_3.txt']
+```
