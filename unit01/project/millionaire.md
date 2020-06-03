@@ -109,3 +109,29 @@ print('Answer:', answer_correct)
 # > Mean runtime: 109.65343915343915
 # > Answer: 110
 ```
+
+---
+
+Вопрос 5
+
+Какое число ближе к медианной длительности фильма в датасете?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+runtime_median = data['runtime'].median()
+
+answers = [106, 112, 101, 120, 115]
+d = None
+answer_correct = None
+for answer in answers:
+    if d is None or abs(runtime_median - answer) < d:
+        answer_correct = answer
+        d = abs(runtime_median - answer)
+print('Median runtime:', runtime_median)
+print('Answer:', answer_correct)
+# > Median runtime: 106.5
+# > Answer: 106
+```
