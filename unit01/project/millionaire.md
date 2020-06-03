@@ -403,3 +403,26 @@ actor_most_common = cnt.most_common(1)[0]
 print('{name} - {cnt}'.format(name=actor_most_common[0], cnt=actor_most_common[1]))
 # > Matt Damon - 18
 ```
+
+---
+
+**Вопрос 19**
+
+В фильмах какого жанра больше всего снимался Nicolas Cage?
+
+```python
+from collections import Counter
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+selected = data.loc[data['cast'].str.contains('Nicolas Cage')]['genres']
+cnt = Counter()
+for genre_str in selected:
+    for genre in genre_str.split('|'):
+        cnt[genre] += 1
+genre_most_common = cnt.most_common(1)[0]
+print('{genre} - {cnt}'.format(genre=genre_most_common[0], cnt=genre_most_common[1]))
+# > Action - 17
+```
