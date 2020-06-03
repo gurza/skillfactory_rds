@@ -33,3 +33,10 @@ print('Количество строк в файле рейтингов:', df_ra
 print('Минимальная оценка:', df_ratings['rating'].min())
 print('Максимальная оценка:', df_ratings['rating'].max())
 ```
+
+
+## 7.4 Структура и требования
+Полезные ссылки:
+1. [Пример режимов склейки таблиц](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+1. [Документация по методу merge](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html)
+1. [Объяснение SQL объединений JOIN: LEFT/RIGHT/INNER/OUTER](http://www.skillz.ru/dev/php/article-Obyasnenie_SQL_obedinenii_JOIN_INNER_OUTER.html)
