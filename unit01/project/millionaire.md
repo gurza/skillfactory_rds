@@ -694,12 +694,11 @@ import pandas as pd
 
 data = pd.read_csv('data.csv')
 titles = data['original_title']
-unique_words = list()
+unique_words = dict()
 for title in titles:
     for word in title.split():
         word_lower = word.lower()
-        if word_lower not in unique_words:
-            unique_words.append(word_lower)
+        unique_words[word_lower] = unique_words.get(word_lower, 0) + 1
 print(len(unique_words))
 # > 2461
 ```
