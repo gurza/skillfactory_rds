@@ -632,6 +632,32 @@ print('{name} - {cnt}'.format(name=director.index[0], cnt=director.iloc[0]))
 
 ---
 
+**Вопрос 30**
+
+Какой месяц чаще всего самый прибыльный в году?
+
+Почему нужно считать по годам, а не просто взять самый прибыльный месяц за весь период?
+Киноиндустрия активно развивается, прибыль компаний растет с каждым годом (например, в 2014 г. индустрия заработала
+в 2 раза больше, чем в 2004). Поэтому прибыльность более поздних месяцев будет значительно перевешивать предыдущие,
+что может привести к искажению выводов.
+
+```python
+import datetime
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['profit'] = data['revenue'] - data['budget']
+data['release_month'] = data['release_date'].apply(lambda dt: datetime.datetime.strptime(dt, "%m/%d/%Y").month)
+
+pivot = data.pivot_table(values=['profit'], index=['release_month'], columns=['release_year'], aggfunc='sum')
+profitable_months = pivot.idxmax().value_counts()
+print(datetime.date(1970, profitable_months.idxmax(), 1).strftime("%B"))
+# > June
+```
+
+---
+
 **Вопрос 31**
 
 Названия фильмов какой студии в среднем самые длинные по количеству символов?
