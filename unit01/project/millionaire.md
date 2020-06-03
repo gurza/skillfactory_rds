@@ -702,3 +702,32 @@ for title in titles:
 print(len(unique_words))
 # > 2461
 ```
+
+---
+
+**Вопрос 34**
+
+Какие фильмы входят в 1 % лучших по рейтингу?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+
+answers = [
+    'Inside Out, Gone Girl, 12 Years a Slave'.split(', '),
+    'BloodRayne, The Adventures of Rocky & Bullwinkle'.split(', '),
+    'The Lord of the Rings: The Return of the King, Upside Down'.split(', '),
+    '300, Lucky Number Slevin'.split(', '),
+]
+
+top1_counts = int(0.01*len(data))
+selected = data[['original_title','vote_average']].sort_values(by='vote_average', ascending=False).head(top1_counts)
+top1_movies = selected['original_title'].values
+
+for i, answer in enumerate(answers):
+    if all([movie in top1_movies for movie in answer]):
+        print("The answer is", i+1, answer)
+# > The answer is 1 ['Inside Out', 'Gone Girl', '12 Years a Slave']
+```
