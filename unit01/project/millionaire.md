@@ -47,3 +47,39 @@ print('{title} ({id})'.format(
     title=movie_biggest_budget['original_title'].iloc[0], id=movie_biggest_budget['imdb_id'].iloc[0]))
 # > The Warrior's Way (tt1032751)
 ```
+
+---
+
+**Вопрос 2**
+
+Какой из фильмов самый длительный (в минутах)?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+movie_max_runtime = data.loc[data['runtime'] == data['runtime'].max()]
+print('{title} ({id}) - {runtime} minutes'.format(
+    title=movie_max_runtime['original_title'].iloc[0], id=movie_max_runtime['imdb_id'].iloc[0],
+    runtime=movie_max_runtime['runtime'].iloc[0]))
+# > Gods and Generals (tt0279111) - 214 minutes
+```
+
+---
+
+**Вопрос 3**
+
+Какой из фильмов самый короткий (в минутах)?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+movie_min_runtime = data.loc[data['runtime'] == data['runtime'].min()]
+print('{title} ({id}) - {runtime} minutes'.format(
+    title=movie_min_runtime['original_title'].iloc[0], id=movie_min_runtime['imdb_id'].iloc[0],
+    runtime=movie_min_runtime['runtime'].iloc[0]))
+# > Winnie the Pooh (tt1449283) - 63 minutes
+```
