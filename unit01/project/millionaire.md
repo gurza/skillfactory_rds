@@ -83,3 +83,29 @@ print('{title} ({id}) - {runtime} minutes'.format(
     runtime=movie_min_runtime['runtime'].iloc[0]))
 # > Winnie the Pooh (tt1449283) - 63 minutes
 ```
+
+---
+
+**Вопрос 4**
+
+Какое число ближе к средней длительности фильма в датасете?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+runtime_mean = data['runtime'].mean()
+
+answers = [i for i in range(100, 125, 5)]
+d = None
+answer_correct = None
+for answer in answers:
+    if d is None or abs(runtime_mean - answer) < d:
+        answer_correct = answer
+        d = abs(runtime_mean - answer)
+print('Mean runtime:', runtime_mean)
+print('Answer:', answer_correct)
+# > Mean runtime: 109.65343915343915
+# > Answer: 110
+```
