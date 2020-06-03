@@ -629,3 +629,56 @@ director = data.loc[data['release_month'].isin([11, 12, 1])]['director'].value_c
 print('{name} - {cnt}'.format(name=director.index[0], cnt=director.iloc[0]))
 # > Peter Jackson - 8
 ```
+
+---
+
+**Вопрос 31**
+
+Названия фильмов какой студии в среднем самые длинные по количеству символов?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['original_title_length'] = data['original_title'].apply(lambda s: len(s))
+
+selected = data[['production_companies', 'original_title_length']]
+temp_list = list()
+for movie in selected.values:
+    for studio in movie[0].split('|'):
+        temp_list.append([studio, movie[1]])
+temp = pd.DataFrame(temp_list, columns=['studio', 'original_title_length'])
+grouped = temp.groupby(['studio'])['original_title_length'].mean().sort_values(ascending=False)
+print('{studio} - {length}'.format(studio=grouped.index[0], length=grouped.iloc[0]))
+# > Four By Two Productions - 83.0
+```
+
+---
+
+**Вопрос 32**
+
+Названия фильмов какой студии в среднем самые длинные по количеству слов?
+
+```python
+import pandas as pd
+
+
+data = pd.read_csv('data.csv')
+data['original_title_words_cnt'] = data['original_title'].apply(lambda s: len(s.split()))
+
+selected = data[['production_companies', 'original_title_words_cnt']]
+temp_list = list()
+for movie in selected.values:
+    for studio in movie[0].split('|'):
+        temp_list.append([studio, movie[1]])
+temp = pd.DataFrame(temp_list, columns=['studio', 'original_title_words_cnt'])
+grouped = temp.groupby(['studio'])['original_title_words_cnt'].mean().sort_values(ascending=False)
+print('{studio} - {words_cnt}'.format(studio=grouped.index[0], words_cnt=grouped.iloc[0]))
+# > Four By Two Productions - 83.0
+
+print(len(data.loc[data['production_companies'].str.contains('Four By Two Productions')]['original_title']))
+# > 1
+print(data.loc[data['production_companies'].str.contains('Four By Two Productions')]['original_title'].iloc[0])
+# > Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan
+```
