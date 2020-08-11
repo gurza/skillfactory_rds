@@ -59,3 +59,53 @@ log.head()
 
 
 ## 8.5 Колонки
+Дополниетльный датасет: [sample.csv](sample.csv).
+
+```python
+import pandas as pd
+
+df = pd.read_csv('sample.csv')
+# Read columns:
+print(df.columns)
+
+# Set column names:
+df.columns = ['new_col_name1', 'new_col_name2', 'new_col_name3', 'new_col_name4']
+```
+
+**Задание 1**
+
+Загрузите файл sample.csv в переменную sample, сохраните колонки в переменную columns.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+columns = sample.columns
+```
+
+**Задание 2**
+Создайте в sample заголовки колонок так, чтобы там были только маленькие буквы.
+Например, вместо 'Age' нужно сделать 'age'.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv("sample.csv")
+sample.columns = [column.lower() for column in sample.columns]
+```
+
+**Задание 3**
+Замените в log заголовки колонок на
+
+- user_id
+- time
+- bet
+- win
+
+```python
+import pandas as pd
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id', 'time', 'bet', 'win']
+log.head()
+``` 
