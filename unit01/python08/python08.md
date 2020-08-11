@@ -11,6 +11,7 @@
 1. Очистка данных
 1. Функция query
 1. Функции str.match и str.contains
+1. Преобразование данных
 
 
 ## 8.1 О чём этот модуль
@@ -344,4 +345,186 @@ import pandas as pd
 log = pd.read_csv('log.csv',header=None)
 log.columns = ['user_id','time', 'bet','win']
 new_log = log[~log['user_id'].str.match('#error', na=True)]
+```
+
+
+## 8.11 Преобразование данных
+Использование функции Apply для преобразования данных.
+
+Apply вызывает свою функцию для каждого элемента колонки. Функции, с которыми работает apply, бывают двух видов:
+
+- лямбда-функции (можно задать внутри apply),
+- обычные именные функции (определяются через def).
+
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+# df.column_name.apply(func)
+sample.Age.apply(lambda x: x**2)
+```
+
+**Задание 1**
+С помощью apply и лямбда-функции увеличьте возраст во всех записях на 1 год и сохраните в sample2.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample
+sample2['Age'] = sample2['Age'].apply(lambda age: age + 1)
+```
+
+**Задание 2**
+
+С помощью apply и lambda-функции замените все буквы в поле City на маленькие и сохраните в sample2.
+Вам может понадобиться функция s.lower().
+
+Обратите внимание: когда в столбце есть пропущенные значения, необходимо в явном виде указывать, что это str.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample
+sample2['City'] = sample2['City'].apply(lambda city: str(city).lower())
+```
+
+**Задание 3**
+
+Напишите функцию profession_code, которая на вход получает строку, а на выход возвращает
+
+- 0 — если на вход поступила строка "Рабочий",
+- 1 — если на вход поступила строка "Менеджер",
+- 2 — в любом другом случае.
+
+```python
+import pandas as pd
+
+
+def profession_code(s):
+    return {
+        'Рабочий': 0,
+        'Менеджер': 1,
+    }.get(s, 2)
+
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample
+sample2['Profession'] = sample2['Profession'].apply(profession_code)
+```
+
+**Задание 4**
+
+Примените функцию profession_code для того, чтобы заменить поле Profession с помощью apply.
+Сохраните получившийся датафрейм в переменную sample2.
+
+См. листинг решения задачи 3.
+
+**Задание 5**
+
+Напишите функцию age_category, которая на вход получает число, а на выход отдаёт:
+
+- "молодой" — если возраст меньше 23
+- "средний" — если возраст от 23 до 35
+- "зрелый" — если возраст больше 35
+
+```python
+import pandas as pd
+
+
+def age_category(age):
+    if age < 23:
+        return 'молодой'
+    elif 23 <= age <= 35 :
+        return 'средний'
+    else:
+        return 'зрелый'
+
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample
+sample2['Age'] = sample2['Age'].apply(age_category)
+```
+
+**Задание 6**
+
+Примените функцию age_category и apply, чтобы создать новую колонку в sample под названием 'Age_category'.
+Не забудьте загрузить датафрейм.
+
+```python
+import pandas as pd
+
+
+def age_category(age):
+    if age < 23:
+        return 'молодой'
+    elif 23 <= age <= 35 :
+        return 'средний'
+    else:
+        return 'зрелый'
+
+
+sample = pd.read_csv('sample.csv')
+sample['Age_category'] = sample['Age'].apply(age_category)
+```
+
+**Задание 7**
+
+Преобразуем поле user_id в датафрейме log, оставив только идентификатор пользователя.
+Например, вместо "Запись пользователя № — user_974" должно остаться только "user_974".
+
+На месте записей с ошибками в user_id должна быть пустая строка "".
+Сделайте это через apply и новую функцию, которую вы создадите. Результат сохраните в log.
+
+```python
+import pandas as pd
+
+
+def clear_user_id(s: str):
+    prefix = 'Запись пользователя № - '
+    clear = s.replace(prefix, '')
+    if clear != s:
+        return clear
+    return ''
+
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id','time','bet','win']
+log['user_id'] = log['user_id'].apply(clear_user_id)
+```
+
+**Задание 8**
+
+Загрузите log.csv в log. Удалите квадратную скобку из первой строки в столбце time,
+чтобы привести его к более привычному формату: t равен log.time[0].
+Сохраните результат в t.
+
+```python
+import pandas as pd
+
+log = pd.read_csv('log.csv', header=None) 
+log.columns = ['user_id','time','bet','win']
+t = log.time[0]
+t = t[1:]
+```
+
+**Задание 9**
+
+Уберите ненужную скобку "[" из поля в time. Результат сохраните в log.
+
+```python
+import pandas as pd
+
+
+def clear_time(s):
+    if not isinstance(s, str):
+        return s
+    return s[1:]
+
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id','time','bet','win']
+log.time = log.time.apply(clear_time)
 ```
