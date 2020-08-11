@@ -272,7 +272,7 @@ import pandas as pd
 sample = pd.read_csv('sample.csv')
 print(sample.query('Age>20'))
 print(sample.query('Age==25'))
-sample.query('City in ["Рига", "Сочи","Чебоксары", "Сургут"] & 21<Age<50 & Profession!="Менеджер"')
+print(sample.query('City in ["Рига", "Сочи","Чебоксары", "Сургут"] & 21<Age<50 & Profession!="Менеджер"'))
 ```
 
 **Задание 1**
