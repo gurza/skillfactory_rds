@@ -12,6 +12,7 @@
 1. Функция query
 1. Функции str.match и str.contains
 1. Преобразование данных
+1. Финальное задание
 
 
 ## 8.1 О чём этот модуль
@@ -527,4 +528,40 @@ def clear_time(s):
 log = pd.read_csv('log.csv', header=None)
 log.columns = ['user_id','time','bet','win']
 log.time = log.time.apply(clear_time)
+```
+
+
+## 8.12 Финальное задание
+
+Соединим всё, что мы делали, и очистим файл log.csv. А именно:
+
+- прочитаем файл в переменную log;
+- добавим названия колонок user_id, time, bet, win;
+- удалим строки, которые содержат значения user_id с ошибками;
+- оставим в user_id только значения идентификатора;
+- уберём начальную скобку из поля time.
+
+```python
+import pandas as pd
+
+
+def clear_user_id(s: str):
+    prefix = 'Запись пользователя № - '
+    clear = s.replace(prefix, '')
+    if clear != s:
+        return clear
+    return ''
+
+
+def clear_time(s):
+    if not isinstance(s, str):
+        return s
+    return s[1:]
+
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id', 'time', 'bet', 'win']
+log = log[~log['user_id'].str.match('#error')]
+log['user_id'] = log['user_id'].apply(clear_user_id)
+log['time'] = log['time'].apply(clear_time)
 ```
