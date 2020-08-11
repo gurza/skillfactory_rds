@@ -95,7 +95,7 @@ columns = sample.columns
 ```python
 import pandas as pd
 
-sample = pd.read_csv("sample.csv")
+sample = pd.read_csv('sample.csv')
 sample.columns = [column.lower() for column in sample.columns]
 ```
 
@@ -246,7 +246,7 @@ sample2 = sample[sample['Age']<30]
 ```python
 import pandas as pd
 
-log = pd.read_csv("log.csv",header=None)
+log = pd.read_csv('log.csv', header=None)
 log.columns = ['user_id','time', 'bet','win']
 log_win = log[log['win'] > 0]
 win_count = len(log_win)
@@ -319,7 +319,7 @@ print(sample[~sample.Name.str.match('К', na=False)])
 ```python
 import pandas as pd
 
-sample = pd.read_csv("sample.csv")
+sample = pd.read_csv('sample.csv')
 sample3 = sample[sample['City'].str.contains('о', na=False)]
 ```
 
@@ -330,7 +330,7 @@ sample3 = sample[sample['City'].str.contains('о', na=False)]
 ```python
 import pandas as pd
 
-sample = pd.read_csv("sample.csv")
+sample = pd.read_csv('sample.csv')
 sample4 = sample[~sample['City'].str.contains('о', na=False)]
 ```
 
@@ -341,7 +341,7 @@ sample4 = sample[~sample['City'].str.contains('о', na=False)]
 ```python
 import pandas as pd
 
-log = pd.read_csv("log.csv",header=None)
+log = pd.read_csv('log.csv',header=None)
 log.columns = ['user_id','time', 'bet','win']
 new_log = log[~log['user_id'].str.match('#error', na=True)]
 ```
