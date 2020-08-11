@@ -264,4 +264,26 @@ sample2 = sample[(sample['Age']<30) & (sample['Profession']=='Рабочий')]
 
 
 ## 8.9 Функция query
+Наиболее мощный и удобный способ проводить фильтрацию — использовать функцию `query()`.
 
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+print(sample.query('Age>20'))
+print(sample.query('Age==25'))
+sample.query('City in ["Рига", "Сочи","Чебоксары", "Сургут"] & 21<Age<50 & Profession!="Менеджер"')
+```
+
+**Задание 1**
+
+С помощью функции query найдите тех, у кого ставка меньше 2000, а выигрыш больше 0.
+Сохраните в новый датафрейм log2.
+
+```python
+import pandas as pd
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id', 'time', 'bet', 'win']
+log2 = log.query('bet < 2000 & win > 0')
+```
