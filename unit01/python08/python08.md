@@ -10,6 +10,7 @@
 1. Формат данных
 1. Очистка данных
 1. Функция query
+1. Функции str.match и str.contains
 
 
 ## 8.1 О чём этот модуль
@@ -286,4 +287,61 @@ import pandas as pd
 log = pd.read_csv('log.csv', header=None)
 log.columns = ['user_id', 'time', 'bet', 'win']
 log2 = log.query('bet < 2000 & win > 0')
+```
+
+
+## 8.10 Функции str.match и str.contains
+Часто приходится фильтровать значения в столбце по соответствию строке или её части.
+Для этого есть две полезные функции:
+
+- `str.match('abc')` — ищет строки, которые начинаются c abc,
+- `str.contains('abc')` — ищет строки, в которых есть abc.
+
+Обе функции не могут работать с NaN, необходимо использовать параметр `na=False`.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+print(sample.Name.str.match("К", na=False))
+
+# Фильтрация DataFrame 
+print(sample[sample.Name.str.match('К', na=False)])
+
+# Значения из DataFrame, которые не соответствуют условию
+print(sample[~sample.Name.str.match('К', na=False)])
+```
+
+**Задание 1**
+
+Найдите записи, где в городах есть буква «о», и сохраните в переменную sample3.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv("sample.csv")
+sample3 = sample[sample['City'].str.contains('о', na=False)]
+```
+
+**Задание 2**
+
+Найдите записи, где в городах нет буквы "о", и сохраните в переменную sample4.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv("sample.csv")
+sample4 = sample[~sample['City'].str.contains('о', na=False)]
+```
+
+**Задание 3**
+
+Сохраните в переменную new_log датафрейм, из которого удалены записи с ошибкой в поле user_id.
+
+```python
+import pandas as pd
+
+log = pd.read_csv("log.csv",header=None)
+log.columns = ['user_id','time', 'bet','win']
+new_log = log[~log['user_id'].str.match('#error', na=True)]
 ```
