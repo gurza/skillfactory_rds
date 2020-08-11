@@ -9,6 +9,7 @@
 1. Колонки
 1. Формат данных
 1. Очистка данных
+1. Функция query
 
 
 ## 8.1 О чём этот модуль
@@ -251,9 +252,16 @@ win_count = len(log_win)
 ```
 
 **Задание 3**
+
+Создайте новый датафрейм sample2, в который будут входить только записи о рабочих младше 30 лет.
+
 ```python
 import pandas as pd
 
 sample = pd.read_csv('sample.csv')
 sample2 = sample[(sample['Age']<30) & (sample['Profession']=='Рабочий')]
 ```
+
+
+## 8.9 Функция query
+
