@@ -7,6 +7,7 @@
 1. Введение в блок
 1. Разбираемся с log.csv
 1. Колонки
+1. Формат данных
 
 
 ## 8.1 О чём этот модуль
@@ -109,3 +110,39 @@ log = pd.read_csv('log.csv', header=None)
 log.columns = ['user_id', 'time', 'bet', 'win']
 log.head()
 ``` 
+
+
+## 8.6 Формат данных
+```python
+import pandas as pd
+
+users = pd.read_csv('users.csv')
+```
+
+**Задание 1**
+
+Посмотрите, какие параметры есть у функции read_csv: в чём может быть ошибка?  
+С помощью правильных параметров read_csv загрузите датафрейм.
+
+```python
+import pandas as pd
+
+users = pd.read_csv('users.csv', encoding='koi8-r', delimiter='\t')
+users.head()
+```
+
+**Задание 2**
+
+Прочитайте файл в переменную users. Замените в нём названия колонок на.
+
+- user_id
+- email
+- geo
+
+```python
+import pandas as pd
+
+users = pd.read_csv('users.csv', encoding='koi8-r', delimiter='\t')
+users.columns = ['user_id', 'email', 'geo']
+users.head()
+```
