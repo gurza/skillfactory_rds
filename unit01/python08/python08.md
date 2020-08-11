@@ -8,6 +8,7 @@
 1. Разбираемся с log.csv
 1. Колонки
 1. Формат данных
+1. Очистка данных
 
 
 ## 8.1 О чём этот модуль
@@ -145,4 +146,65 @@ import pandas as pd
 users = pd.read_csv('users.csv', encoding='koi8-r', delimiter='\t')
 users.columns = ['user_id', 'email', 'geo']
 users.head()
+```
+
+# 8.7 Очистка данных
+Изучим данные, а именно:
+
+- формат представления данных,
+- ошибки в данных,
+- пропущенные значения,
+- дубликаты,
+- типы данных (числа, строки, даты).
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+print(sample['City'].unique())
+print(sample.info())
+```
+
+В результате `info()` важен тип данных в колонке (Pandas определяет их автоматически)
+и количество ненулевых значений, то есть количество реальных значений, не NaN.
+
+**Задание 1**
+
+Посмотрите все уникальные значения в sample.csv.  
+Какие ошибки вы видете в колонке Name?
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+print(sample['Name'].unique())
+print(sample.info())
+```
+
+- Есть пропущенные значения
+- Прочерки вместо фамилии
+- Есть фамилии, написанные латиницей
+
+**Задание 2**
+
+Посмотрите, сколько непустых значений в колонке City.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+print(len(sample['City'].unique()))
+```
+
+**Задание 3**
+Поработаем с log.csv. В колонке user_id есть записи, которые содержат технические ошибки.
+Укажите, что записано в поле user_id в строчках с ошибкой.
+
+```python
+import pandas as pd
+
+log = pd.read_csv('log.csv', header=None)
+log.columns = ['user_id', 'time', 'bet', 'win']
+errors = [u for u in log['user_id'] if not u.startswith('Запись пользователя')]
+print(errors)
 ```
