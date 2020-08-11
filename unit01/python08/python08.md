@@ -217,11 +217,43 @@ print(errors)
 ```python
 import pandas as pd
 
-
 df = pd.read_csv('sample.csv')
 # Отфильтровать датафрейм по условию
 print(df[df['column']>100])
 
 # Если условий несколько, то к ним можно применить логические операции
 print(df[(df['column_name_1']>100) & (df['column_name_2']<200)])
+```
+
+**Задание 1**
+
+Создайте новый датафрейм sample2, в который будут входить только записи о людях в возрасте меньше 30 лет.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample[sample['Age']<30]
+```
+
+**Задание 2**
+
+Создайте новый датафрейм log_win, в который будут входить только записи, где пользователь выиграл.
+Посчитайте, сколько таких записей, и сохраните в переменной win_count.
+
+```python
+import pandas as pd
+
+log = pd.read_csv("log.csv",header=None)
+log.columns = ['user_id','time', 'bet','win']
+log_win = log[log['win'] > 0]
+win_count = len(log_win)
+```
+
+**Задание 3**
+```python
+import pandas as pd
+
+sample = pd.read_csv('sample.csv')
+sample2 = sample[(sample['Age']<30) & (sample['Profession']=='Рабочий')]
 ```
