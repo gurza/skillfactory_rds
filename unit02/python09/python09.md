@@ -5,6 +5,7 @@
 1. О чём этот модуль
 1. О массивах NumPy
 1. Индексирование массивов NumPy
+1. Операции с массивами
 
 
 ## 9.1 О чём этот модуль
@@ -291,4 +292,229 @@ for i in range(5):
     res *= matrix[i, i]
 print(res)
 # > -1.0
+```
+
+
+## 9.4 Операции с массивами
+Особенностью работы с массивами в NumPy является то, что возможности библиотеки позволяют выполнять любые математические
+действия с массивами без использования циклов for, благодаря чему вычисления производятся с большой скоростью.
+
+У нас есть два массива: найдём их сумму, разность, произведение, частное и умножим один из массивов на число.
+
+```python
+import numpy as np
+
+a = np.array([3,6,9])
+b = np.array([12,15,18])
+
+result1 = a+b
+result2 = b-a
+result3 = a*b
+result4 = a/b
+result5 = a*2
+print('Сумма: {}\nРазность: {}\nПроизведение: {}\nЧастное: {}\nУмножение на число: {}'
+      .format(result1, result2, result3, result4, result5))
+```
+
+### Универсальные функции
+
+Рассмотрим список часто используемых универсальных функций NumPy:
+
+- sqrt - квадратный корень каждого элемента массива
+- abs
+- exp
+- log, log10, log2, log1p - натуральный (по основанию е), десятичный, двоичный логарифм и функция log(1+x)
+- modf - дробные и целые части массива в виде отдельных массивов
+- isnan - массив логических (булевых) значений, показывающий, какие из элементов исходного массива  являются NaN
+- cos, sin, tan
+- arccos, arcsin, arctan
+
+
+```python
+import numpy as np
+
+a = np.array([3,-6,9])
+print(np.abs(a))
+# > array([3, 6, 9])
+
+print(np.modf(a))
+# > (array([ 0., -0.,  0.]), array([ 3., -6.,  9.]))
+```
+
+### Изменение размерности массива
+
+В некоторых задачах машинного обучения для подготовки данных к обработке нужно изменить исходную форму массива,
+например, преобразовать многомерный массив в одномерный, поменять местами строки и столбцы.
+
+```python
+import numpy as np
+
+# Транспонирование
+my_array = np.array([[1,2,3,4,5], [6,7,8,9,10]])
+print(my_array.T)
+
+# Преобразование одномерного массива в двумерный с помощью функции reshape
+my_array = np.random.randint(0, 10, 20)
+print(my_array.reshape((4,5)))
+
+# Преобразование двумерного массива в одномерный
+my_array = np.array([[1,2,3], [11,22,33], [111,222,333]])
+print(my_array.flatten())
+```
+
+### Сравнения и маски
+
+```python
+import numpy as np
+
+my_array = np.random.randint(0, 10, (3,4))
+print(my_array)
+# [[0 0 4 0]
+# [4 6 0 0]
+# [8 5 5 0]]
+
+print(my_array < 5)
+# [[ True  True  True  True]
+# [ True False  True  True]
+# [False False False  True]]
+
+print(my_array[my_array<5])
+# [0 0 4 0 4 0 0 0]
+
+# Маска нужна для выбора только определенных строк или столбцов из всего массива и скрытия остальных
+mask = np.array([1, 0, 1, 0], dtype=bool)
+print(my_array[:, mask])
+# [[0 4]
+# [4 0]
+# [8 5]]
+```
+
+### Сортировка двумерных массивов
+
+В двумерных массивах можно выполнять сортировку элементов строк и столбцов.
+
+```python
+import numpy as np
+
+my_array = np.random.randint(0, 10, (4, 6))
+# [[0 8 6 6 9 4]
+#  [9 6 5 2 9 8]
+#  [2 2 4 5 0 0]
+#  [6 8 9 4 5 6]]
+
+print(np.sort(my_array, axis=1))
+# [[0 4 6 6 8 9]
+#  [2 5 6 8 9 9]
+#  [0 0 2 2 4 5]
+#  [4 5 6 6 8 9]]
+
+print(np.sort(my_array, axis=0))
+# [[0 2 4 2 0 0]
+#  [2 6 5 4 5 4]
+#  [6 8 6 5 9 6]
+#  [9 8 9 6 9 8]]
+```
+
+Для выполнения упражнений из следующего блока мы будем использовать массив, созданный с помощью кода.
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+```
+
+**Задание 1**
+
+Сколько столбцов содержит массив great_secret?
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+
+print(great_secret.shape[1])
+# > 3
+```
+
+**Задание 2**
+
+Чему равна сумма косинусов элементов первой строки массива great_secret?
+Ответ округлите до двух знаков после запятой.
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+
+s = np.sum(np.cos(great_secret[0,:]))
+print(round(s, 2))
+# > 0.16
+```
+
+**Задание 3**
+
+Чему равна сумма элементов массива great_secret, значение которых больше 50?
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+
+s = np.sum(great_secret[great_secret>50])
+print(s)
+# > 5470.0
+```
+
+**Задание 4**
+
+Переведите массив great_secret в одномерную форму.
+Какое значение в получившемся массиве имеет элемент с индексом 150?
+Скопируйте ответ из Jupyter Notebook без изменений.
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+
+print(great_secret.flatten()[150])
+```
+
+**Задание 5**
+
+Отсортируйте значения столбцов массива great_secret по возрастанию.
+Чему равна сумма элементов последней строки отсортированного массива?
+Ответ округлите до двух цифр после запятой.
+
+```python
+import numpy as np
+
+first = [x**(1/2) for x in range(100)]
+second = [x**(1/3) for x in range(100, 200)]
+third = [x/y for x in range(200,300,2) for y in [3,5]]
+
+great_secret = np.array([first, second, third]).T
+
+sorted = np.sort(great_secret, axis=0)
+print(round(np.sum(sorted[-1:,:]), 2))
+# > 115.12
 ```
