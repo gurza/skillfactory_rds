@@ -918,7 +918,8 @@ print(round(np.std(bigdata), 2))
 import numpy as np
 
 bigdata = np.array([x*x for x in range(100, 1000) if x % 2])
-even = bigdata[range(0, len(bigdata), 2)]
-odd = bigdata[range(1, len(bigdata), 2)]
+even = bigdata[0::2]
+odd = bigdata[1::2]
 print(np.corrcoef(even, odd)[0, 1])
+# > 0.999999729628576
 ```
