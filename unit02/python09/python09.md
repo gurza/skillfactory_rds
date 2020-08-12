@@ -871,9 +871,12 @@ my_array = np.array([[1,2,3,4,5],
                      [21,22,23,24,25]])
 
 my_sin = np.sin(my_array)
+my_sin[1:4, 1:4] = np.ones([3, 3])
+
 new_sin = my_sin[:,:4].reshape([10, 2])
 s = np.sum(new_sin[:,0])
 print(round(s, 3))
+# > 2.406
 ```
 
 Подготовка массива к заданиям 8-10.
