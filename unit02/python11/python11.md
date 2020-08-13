@@ -12,6 +12,7 @@
 1. Задания
 1. Библиотека datetime
 1. Перевод строки в дату
+1. Перевод даты в строку
 
 
 ## 11.1. Введение
@@ -223,4 +224,25 @@ date_string = '05.05.2019 21:00'
 dt = datetime.datetime.strptime(date_string, '%d.%m.%Y %H:%M')
 print(dt.month)
 ```
+
  
+ ## 11. Перевод даты в строку
+
+```python
+import datetime
+
+dt = datetime.datetime(2019, 5, 5, 21, 0)
+print(dt.strftime('%Y-%m-%d'))
+```
+
+**Задание**
+
+Дана дата: dt = datetime(2019, 4, 1, 18, 59, 44). Выведите её в виде строки формата %Y-%m-%d
+
+```python
+import datetime
+
+dt = datetime.datetime(2019, 4, 1, 18, 59, 44)
+print(dt.strftime('%Y-%m-%d'))
+# > 2019-04-01
+```
