@@ -11,6 +11,7 @@
 1. Формат unixtime
 1. Задания
 1. Библиотека datetime
+1. Перевод строки в дату
 
 
 ## 11.1. Введение
@@ -201,3 +202,25 @@ print(7200/60)
 import datetime
 ```
 
+
+## 10. Перевод строки в дату
+
+```python
+import datetime
+
+date_string = '05.05.2019 21:00'
+dt = datetime.datetime.strptime(date_string, '%d.%m.%Y %H:%M')
+```
+
+**Задание**
+
+Введите команду, с помощью которой можно получить номер месяца даты dt.
+
+```python
+import datetime
+
+date_string = '05.05.2019 21:00'
+dt = datetime.datetime.strptime(date_string, '%d.%m.%Y %H:%M')
+print(dt.month)
+```
+ 
