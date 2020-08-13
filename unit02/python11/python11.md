@@ -14,6 +14,7 @@
 1. Перевод строки в дату
 1. Перевод даты в строку
 1. Задания на преобразования дат
+1. Синтаксис и принцип работы timedelta
 
 
 ## 11.1. Введение
@@ -314,3 +315,13 @@ report_seconds = [6, 2, 4]
 total_time = sum(report_seconds)
 ```
 
+
+## 13. Синтаксис и принцип работы timedelta
+
+```python
+import datetime
+
+start_date = '2019-01-01'
+start_date_datetime = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+end_date_datetime = start_date_datetime + datetime.timedelta(days = 1)
+```
