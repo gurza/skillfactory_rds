@@ -13,6 +13,7 @@
 1. Библиотека datetime
 1. Перевод строки в дату
 1. Перевод даты в строку
+1. Задания на преобразования дат
 
 
 ## 11.1. Введение
@@ -226,7 +227,7 @@ print(dt.month)
 ```
 
  
- ## 11. Перевод даты в строку
+ ## 11.11. Перевод даты в строку
 
 ```python
 import datetime
@@ -245,4 +246,71 @@ import datetime
 dt = datetime.datetime(2019, 4, 1, 18, 59, 44)
 print(dt.strftime('%Y-%m-%d'))
 # > 2019-04-01
+```
+
+
+## 11.12 Задания на преобразования дат
+
+**Задание 1**
+
+Дана строка с датой date_string = '2019-07-07T18:59:33'.
+
+Преобразуйте её в строку с форматом %d.%m.%Y. Результат запишите в переменную date_format.
+
+```python
+import datetime
+
+date_string = '2019-07-07T18:59:33'
+dt = datetime.datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S')
+date_format = dt.strftime('%d.%m.%Y')
+```
+
+**Задание 2**
+
+У вас есть список запуска отчёта по расписанию:
+
+dt_list = ['2019-07-07T18:59:06', '2019-07-07T19:00:02', '2019-07-07T19:01:04']
+
+Переведите эти значения из строк в формат datetime и запишите результат в переменную datetime_list.
+В переменной datetime_list должен быть список элементов вида datetime(2019, 7, 7, 18, 59, 6)
+
+```python
+import datetime
+
+dt_list = ['2019-07-07T18:59:06', '2019-07-07T19:00:02', '2019-07-07T19:01:04']
+datetime_list = [datetime.datetime.strptime(dt, '%Y-%m-%dT%H:%M:%S') for dt in dt_list]
+```
+
+**Задание 3**
+
+В прошлом задании у вас получился список datetime_list с элементами типа datetime.
+
+Наш отчёт запускался каждую минуту в 18:59:00, 19:00:00 и 19:01:00.
+Посчитайте для каждого элемента количество секунд, которое работал скрипт.
+Результат запишите в список report_seconds (каждый элемент, соответственно, целое число).
+
+```python
+from datetime import datetime
+
+datetime_list = [
+    datetime(2019, 7, 7, 18, 59, 6),
+    datetime(2019, 7, 7, 19, 0, 2),
+    datetime(2019, 7, 7, 19, 1, 4)
+]
+
+report_seconds = [dt.second for dt in datetime_list]
+```
+
+
+**Задание 4**
+
+Посчитайте суммарное время выполнения скрипта в секундах из списка report_seconds прошлого задания.
+
+Результат запишите в переменную total_time (целое число секунд).
+
+```python
+from datetime import datetime
+
+report_seconds = [6, 2, 4]
+total_time = sum(report_seconds)
 ```
