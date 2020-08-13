@@ -325,3 +325,21 @@ start_date = '2019-01-01'
 start_date_datetime = datetime.datetime.strptime(start_date, '%Y-%m-%d')
 end_date_datetime = start_date_datetime + datetime.timedelta(days = 1)
 ```
+
+
+## 14. Перебор дат в цикле
+Реализуем алгоритм, который по дате начала и конца выгрузки будет «пробегать» все значения по дням.
+
+```python
+import datetime
+
+start_date = '2019-01-01'
+end_date = '2019-01-07'
+start_date_datetime = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+end_date_datetime = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+
+current_day = start_date_datetime
+while current_day <= end_date_datetime:
+    print(current_day.strftime('%Y-%m-%d'))
+    current_day += datetime.timedelta(days=1)
+```
