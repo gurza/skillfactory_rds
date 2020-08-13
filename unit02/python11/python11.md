@@ -301,7 +301,6 @@ datetime_list = [
 report_seconds = [dt.second for dt in datetime_list]
 ```
 
-
 **Задание 4**
 
 Посчитайте суммарное время выполнения скрипта в секундах из списка report_seconds прошлого задания.
@@ -314,3 +313,4 @@ from datetime import datetime
 report_seconds = [6, 2, 4]
 total_time = sum(report_seconds)
 ```
+
