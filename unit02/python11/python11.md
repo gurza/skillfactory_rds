@@ -200,14 +200,14 @@ print(7200/60)
 - 2018 **Неверно**
 
 
-## 9. Библиотека datetime
+## 11.9. Библиотека datetime
 
 ```python
 import datetime
 ```
 
 
-## 10. Перевод строки в дату
+## 11.10. Перевод строки в дату
 
 ```python
 import datetime
@@ -317,7 +317,7 @@ total_time = sum(report_seconds)
 ```
 
 
-## 13. Синтаксис и принцип работы timedelta
+## 11.13. Синтаксис и принцип работы timedelta
 
 ```python
 import datetime
@@ -328,7 +328,7 @@ end_date_datetime = start_date_datetime + datetime.timedelta(days = 1)
 ```
 
 
-## 14. Перебор дат в цикле
+## 11.14. Перебор дат в цикле
 Реализуем алгоритм, который по дате начала и конца выгрузки будет «пробегать» все значения по дням.
 
 ```python
